@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ena Coach</title>
     <style>
+        /*
+         * BODY STYLING
+         * Sets up the dark gold background and centers all content.
+         */
         body {
             font-family: Arial, sans-serif;
-            background-color: #0c1524; /* Dark background */
+            background-color: #7b5b2e;
             color: #ffffff;
             margin: 0;
             padding: 0;
@@ -16,45 +20,51 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            overflow: hidden; /* Hide scrollbar */
-        }
-        .container {
-            text-align: center;
-        }
-        .logo {
-            width: 200px; /* Adjust size as needed */
-            height: auto;
-        }
-        .loading-bar {
-            width: 80%;
-            height: 4px;
-            background-color: #334455;
-            margin-top: 20px;
-            border-radius: 2px;
             overflow: hidden;
+            position: relative;
         }
-        .loading-bar-inner {
+
+        /*
+         * LOGO CONTAINER & IMAGE
+         * Centers the logo and ensures it fits the screen without distortion.
+         */
+        .logo-container {
+            width: 100%;
             height: 100%;
-            background-color: #e74c3c; /* Red color */
-            width: 0;
-            animation: load 6.2s linear forwards;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        @keyframes load {
-            0% { width: 0; }
-            100% { width: 100%; }
+
+        .logo {
+            max-width: 90%;
+            max-height: 80%;
+            object-fit: contain;
+        }
+
+        /*
+         * LOADING TEXT
+         * Positions the "Loading..." message at the bottom of the screen.
+         */
+        .loading-text {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5em;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="logo-container">
         <img src="vogo.png" alt="Ena Coach Logo" class="logo">
-        <div class="loading-bar">
-            <div class="loading-bar-inner"></div>
-        </div>
     </div>
+    <div class="loading-text">Loading...</div>
 
     <script>
-        // Set a timer to redirect after 6.2 seconds (6200 milliseconds)
+        // REDIRECTION SCRIPT
+        // Sets a timer to automatically navigate to the booking page after 6.2 seconds.
         setTimeout(() => {
             window.location.href = 'booking.html';
         }, 6200);
