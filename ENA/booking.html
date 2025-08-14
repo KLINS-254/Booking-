@@ -8,7 +8,7 @@
         /* General Body and Layout */
         body {
             font-family: Arial, sans-serif;
-            background-color: #e3b06e; /* Matched to the background of the new image */
+            background-color: #8c6a38;
             color: #ffffff;
             margin: 0;
             padding: 0;
@@ -26,11 +26,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('hugo.png'); /* Watermark image */
+            background-image: url('vogo.png');
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
-            opacity: 0.1; /* Adjusted for the new background color */
+            opacity: 0.1;
             z-index: -1;
         }
         .header {
@@ -64,14 +64,12 @@
             font-weight: bold;
             line-height: 1.2;
             margin-bottom: 20px;
-            color: #ffffff;
         }
         .booking-section {
-            background-color: #a88a5e; /* Adjusted to match the color of the booking section in the screenshot */
+            background-color: #a37f4f;
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
-            position: relative;
         }
         .location-group {
             display: flex;
@@ -82,7 +80,6 @@
         .location-group .field {
             text-align: left;
             position: relative;
-            z-index: 1; /* Ensure inputs are above other elements */
         }
         .location-group .field label {
             display: block;
@@ -94,42 +91,37 @@
             width: 100%;
             padding: 10px;
             border: none;
-            border-radius: 5px;
-            background-color: #ffffff;
-            color: #000000;
+            border-bottom: 1px solid #7c5c2a;
+            background-color: transparent;
+            color: #ffffff;
             font-size: 16px;
             box-sizing: border-box;
-            text-align: center;
         }
         .location-group .field input::placeholder {
-            color: #7b5b2e; /* Matched placeholder color */
+            color: #e0e0e0;
         }
         .swap-button {
             position: absolute;
             top: 50%;
-            right: -20px;
+            right: 10px;
             transform: translateY(-50%);
-            background-color: #e3b06e;
+            background-color: #e7c088;
             border: none;
             border-radius: 5px;
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 24px;
+            font-size: 18px;
             color: #ffffff;
-            font-weight: bold;
-            z-index: 2;
         }
         .date-section {
-            background-color: #a88a5e; /* Matched to the color of the date section in the screenshot */
+            background-color: #a37f4f;
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
-            text-align: left;
-            position: relative;
         }
         .date-field {
             text-align: left;
@@ -138,18 +130,17 @@
             display: block;
             color: #ffffff;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         .date-field input {
             width: 100%;
             padding: 10px;
             border: none;
-            border-radius: 5px;
-            background-color: #ffffff;
-            color: #000000;
+            border-bottom: 1px solid #7c5c2a;
+            background-color: transparent;
+            color: #ffffff;
             font-size: 16px;
             box-sizing: border-box;
-            text-align: center;
         }
         .search-button {
             width: 100%;
@@ -175,6 +166,31 @@
             height: 15px;
             text-align: center;
         }
+
+        /* Dropdown Styles */
+        .city-dropdown {
+            display: none;
+            position: absolute;
+            width: 100%;
+            max-height: 200px;
+            overflow-y: auto;
+            background-color: #1c2738;
+            border: 1px solid #3b506b;
+            border-radius: 5px;
+            margin-top: 5px;
+            z-index: 100;
+        }
+        .city-dropdown.show {
+            display: block;
+        }
+        .city-dropdown-item {
+            padding: 10px;
+            cursor: pointer;
+            text-align: left;
+        }
+        .city-dropdown-item:hover {
+            background-color: #3b506b;
+        }
     </style>
 </head>
 <body>
@@ -192,13 +208,15 @@
                 <div class="field">
                     <label for="from">FROM: Enter City</label>
                     <input type="text" id="from" placeholder="Enter City" autocomplete="off">
+                    <div id="from-dropdown" class="city-dropdown"></div>
                 </div>
+                <button id="swap-button" class="swap-button">&#8645;</button>
                 <div class="field">
                     <label for="to">TO: Enter City</label>
                     <input type="text" id="to" placeholder="Enter City" autocomplete="off">
+                    <div id="to-dropdown" class="city-dropdown"></div>
                 </div>
             </div>
-            <button id="swap-button" class="swap-button">&#8645;</button>
         </div>
 
         <div class="date-section">
@@ -223,6 +241,8 @@
 
         const fromInput = document.getElementById('from');
         const toInput = document.getElementById('to');
+        const fromDropdown = document.getElementById('from-dropdown');
+        const toDropdown = document.getElementById('to-dropdown');
         const dateInput = document.getElementById('date');
         const searchButton = document.getElementById('search-button');
         const errorMessage = document.getElementById('errorMessage');
@@ -235,6 +255,46 @@
         const today = new Date().toISOString().split('T')[0];
         dateInput.setAttribute('min', today);
 
+        // Helper function to render cities in the dropdown
+        function renderCities(input, dropdown) {
+            const inputValue = input.value.replace('🏢 ', '').toUpperCase();
+            dropdown.innerHTML = '';
+            
+            const filteredCities = cities.filter(city => city.includes(inputValue));
+            
+            if (filteredCities.length > 0) {
+                filteredCities.forEach(city => {
+                    const item = document.createElement('div');
+                    item.className = 'city-dropdown-item';
+                    item.textContent = `🏢 ${city}`;
+                    item.addEventListener('click', () => {
+                        input.value = `🏢 ${city}`;
+                        dropdown.classList.remove('show');
+                    });
+                    dropdown.appendChild(item);
+                });
+                dropdown.classList.add('show');
+            } else {
+                dropdown.classList.remove('show');
+            }
+        }
+
+        // Event listeners for the input fields
+        fromInput.addEventListener('input', () => renderCities(fromInput, fromDropdown));
+        fromInput.addEventListener('focus', () => renderCities(fromInput, fromDropdown));
+        toInput.addEventListener('input', () => renderCities(toInput, toDropdown));
+        toInput.addEventListener('focus', () => renderCities(toInput, toDropdown));
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!fromInput.parentElement.contains(event.target) && !fromDropdown.contains(event.target)) {
+                fromDropdown.classList.remove('show');
+            }
+            if (!toInput.parentElement.contains(event.target) && !toDropdown.contains(event.target)) {
+                toDropdown.classList.remove('show');
+            }
+        });
+
         // Add functionality to the swap button
         swapButton.addEventListener('click', () => {
             const fromValue = fromInput.value;
@@ -244,8 +304,8 @@
 
         // Add functionality to the search button
         searchButton.addEventListener('click', () => {
-            const fromCityRaw = fromInput.value.trim().toUpperCase().replace('🏢 ', '');
-            const toCityRaw = toInput.value.trim().toUpperCase().replace('🏢 ', '');
+            const fromCityRaw = fromInput.value.trim();
+            const toCityRaw = toInput.value.trim();
             
             errorMessage.textContent = '';
 
@@ -254,19 +314,22 @@
                 return;
             }
 
-            if (fromCityRaw === toCityRaw) {
+            const fromCityClean = fromCityRaw.replace('🏢 ', '');
+            const toCityClean = toCityRaw.replace('🏢 ', '');
+
+            if (fromCityClean === toCityClean) {
                 errorMessage.textContent = 'From and To cities cannot be the same.';
                 return;
             }
 
             // New validation: check if the cities are in the valid list
-            if (!citySet.has(fromCityRaw) || !citySet.has(toCityRaw)) {
-                errorMessage.textContent = 'Please select valid cities from the list.';
+            if (!citySet.has(fromCityClean) || !citySet.has(toCityClean)) {
+                errorMessage.textContent = 'Please select valid cities from the dropdown.';
                 return;
             }
 
             // If all checks pass, proceed
-            alert(`Searching for buses from ${fromCityRaw} to ${toCityRaw} on ${dateInput.value}...`);
+            alert(`Searching for buses from ${fromCityClean} to ${toCityClean} on ${dateInput.value}...`);
         });
     </script>
 </body>
