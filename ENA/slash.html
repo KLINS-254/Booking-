@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ena Coach</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0c1524; /* Dark background */
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden; /* Hide scrollbar */
+        }
+        .container {
+            text-align: center;
+        }
+        .logo {
+            width: 200px; /* Adjust size as needed */
+            height: auto;
+        }
+        .loading-bar {
+            width: 80%;
+            height: 4px;
+            background-color: #334455;
+            margin-top: 20px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .loading-bar-inner {
+            height: 100%;
+            background-color: #e74c3c; /* Red color */
+            width: 0;
+            animation: load 6.2s linear forwards;
+        }
+        @keyframes load {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="logov.png" alt="Ena Coach Logo" class="logo">
+        <div class="loading-bar">
+            <div class="loading-bar-inner"></div>
+        </div>
+    </div>
+
+    <script>
+        // Set a timer to redirect after 6.2 seconds (6200 milliseconds)
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 6200);
+    </script>
+</body>
+</html>
