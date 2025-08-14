@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ena Coach</title>
+    <title>Ena Coach - Booking</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #8c6a38; /* Matches the background color of the image */
+            background-color: #8c6a38;
             color: #ffffff;
             margin: 0;
             padding: 0;
@@ -18,7 +18,6 @@
             position: relative;
             overflow: hidden;
         }
-        /* Watermark effect */
         body::before {
             content: '';
             position: absolute;
@@ -30,7 +29,7 @@
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
-            opacity: 0.1; /* Adjust opacity for the watermark effect */
+            opacity: 0.1;
             z-index: -1;
         }
         .header {
@@ -55,7 +54,7 @@
             width: 90%;
             max-width: 500px;
             padding: 20px;
-            margin-top: 60px; /* Space for the header */
+            margin-top: 60px;
             position: relative;
             z-index: 2;
         }
@@ -66,7 +65,7 @@
             margin-bottom: 20px;
         }
         .booking-section {
-            background-color: #a37f4f; /* Matches the input container color */
+            background-color: #a37f4f;
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
@@ -118,7 +117,7 @@
             color: #ffffff;
         }
         .date-section {
-            background-color: #a37f4f; /* Matches the input container color */
+            background-color: #a37f4f;
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
@@ -157,6 +156,15 @@
         .search-button:hover {
             background-color: #f5d7b5;
         }
+        .error-message {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            display: block;
+            height: 15px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -173,12 +181,12 @@
             <div class="location-group">
                 <div class="field">
                     <label for="from">FROM: Enter City</label>
-                    <input type="text" id="from" placeholder="Enter City">
+                    <input type="text" id="from" placeholder="Enter City" list="city-options">
                 </div>
-                <button class="swap-button">&#8645;</button>
+                <button id="swap-button" class="swap-button">&#8645;</button>
                 <div class="field">
                     <label for="to">TO: Enter City</label>
-                    <input type="text" id="to" placeholder="Enter City">
+                    <input type="text" id="to" placeholder="Enter City" list="city-options">
                 </div>
             </div>
         </div>
@@ -190,7 +198,91 @@
             </div>
         </div>
 
-        <button class="search-button">Search Bus</button>
+        <span id="errorMessage" class="error-message"></span>
+        <button id="search-button" class="search-button">Search Bus</button>
     </div>
+
+    <datalist id="city-options">
+        <option value="🏢 AWENDO">
+        <option value="🏢 BIRONGO">
+        <option value="🏢 BOMALA">
+        <option value="🏢 BONDO">
+        <option value="🏢 BOMET">
+        <option value="🏢 BUSIA">
+        <option value="🏢 HOMABAY">
+        <option value="🏢 KATITO">
+        <option value="🏢 KEHANCHA">
+        <option value="🏢 KEBIRIGO">
+        <option value="🏢 KENDUBAY">
+        <option value="🏢 KERICHO">
+        <option value="🏢 KEROKA">
+        <option value="🏢 KEUMBU">
+        <option value="🏢 KIJAURI">
+        <option value="🏢 KISII">
+        <option value="🏢 KISUMU">
+        <option value="🏢 MASENO">
+        <option value="🏢 MBITA">
+        <option value="🏢 MIGORI">
+        <option value="🏢 MOMBASA">
+        <option value="🏢 NAIROBI">
+        <option value="🏢 NAKURU">
+        <option value="🏢 NAROK">
+        <option value="🏢 NDHIWA">
+        <option value="🏢 NYACHENGE">
+        <option value="🏢 NYAMIRA">
+        <option value="🏢 OYUGIS">
+        <option value="🏢 RODIKOPANY">
+        <option value="🏢 RONGO">
+        <option value="🏢 SIAYA">
+        <option value="🏢 SIRARE">
+        <option value="🏢 SONDU">
+        <option value="🏢 SORI">
+        <option value="🏢 SOTIK">
+        <option value="🏢 TABAKA">
+    </datalist>
+
+    <script>
+        const fromInput = document.getElementById('from');
+        const toInput = document.getElementById('to');
+        const dateInput = document.getElementById('date');
+        const searchButton = document.getElementById('search-button');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Set the minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+
+        // Add functionality to the search button
+        searchButton.addEventListener('click', () => {
+            const fromCity = fromInput.value.trim();
+            const toCity = toInput.value.trim();
+            
+            errorMessage.textContent = '';
+
+            // Check if FROM and TO cities are the same
+            if (fromCity && toCity && fromCity === toCity) {
+                errorMessage.textContent = 'From and To cities cannot be the same.';
+                return;
+            }
+
+            // You can add more validation here (e.g., check if date is selected, cities are valid)
+            if (!fromCity || !toCity || !dateInput.value) {
+                errorMessage.textContent = 'Please fill out all booking details.';
+                return;
+            }
+
+            // If all checks pass, proceed to the next page
+            // window.location.href = 'next_page.html';
+            alert(`Searching for buses from ${fromCity} to ${toCity} on ${dateInput.value}...`);
+        });
+
+        // Add functionality to the swap button
+        const swapButton = document.getElementById('swap-button');
+        swapButton.addEventListener('click', () => {
+            const fromValue = fromInput.value;
+            fromInput.value = toInput.value;
+            toInput.value = fromValue;
+        });
+    </script>
 </body>
 </html>
