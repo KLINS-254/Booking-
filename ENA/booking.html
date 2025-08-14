@@ -232,10 +232,10 @@
 
     <script>
         const cities = [
-            "AWENDO", "BIRONGO", "BOMALA", "BONDO", "BOMET", "BUSIA", "HOMABAY", "KATITO", 
-            "KEHANCHA", "KEBIRIGO", "KENDUBAY", "KERICHO", "KEROKA", "KEUMBU", "KIJAURI", 
-            "KISII", "KISUMU", "MASENO", "MBITA", "MIGORI", "MOMBASA", "NAIROBI", "NAKURU", 
-            "NAROK", "NDHIWA", "NYACHENGE", "NYAMIRA", "OYUGIS", "RODIKOPANY", "RONGO", 
+            "AWENDO", "BIRONGO", "BOMALA", "BONDO", "BOMET", "BUSIA", "HOMABAY", "KATITO",
+            "KEHANCHA", "KEBIRIGO", "KENDUBAY", "KERICHO", "KEROKA", "KEUMBU", "KIJAURI",
+            "KISII", "KISUMU", "MASENO", "MBITA", "MIGORI", "MOMBASA", "NAIROBI", "NAKURU",
+            "NAROK", "NDHIWA", "NYACHENGE", "NYAMIRA", "OYUGIS", "RODIKOPANY", "RONGO",
             "SIAYA", "SIRARE", "SONDU", "SORI", "SOTIK", "TABAKA"
         ].sort();
 
@@ -247,6 +247,9 @@
         const searchButton = document.getElementById('search-button');
         const errorMessage = document.getElementById('errorMessage');
         const swapButton = document.getElementById('swap-button');
+        
+        // A Set is used for fast lookup of valid cities
+        const citySet = new Set(cities);
 
         // Set the minimum date to today
         const today = new Date().toISOString().split('T')[0];
@@ -254,7 +257,7 @@
 
         // Helper function to render cities in the dropdown
         function renderCities(input, dropdown) {
-            const inputValue = input.value.toUpperCase();
+            const inputValue = input.value.replace('🏢 ', '').toUpperCase();
             dropdown.innerHTML = '';
             
             const filteredCities = cities.filter(city => city.includes(inputValue));
@@ -284,10 +287,10 @@
 
         // Close dropdown when clicking outside
         document.addEventListener('click', (event) => {
-            if (!fromInput.contains(event.target) && !fromDropdown.contains(event.target)) {
+            if (!fromInput.parentElement.contains(event.target) && !fromDropdown.contains(event.target)) {
                 fromDropdown.classList.remove('show');
             }
-            if (!toInput.contains(event.target) && !toDropdown.contains(event.target)) {
+            if (!toInput.parentElement.contains(event.target) && !toDropdown.contains(event.target)) {
                 toDropdown.classList.remove('show');
             }
         });
@@ -301,22 +304,32 @@
 
         // Add functionality to the search button
         searchButton.addEventListener('click', () => {
-            const fromCity = fromInput.value.trim();
-            const toCity = toInput.value.trim();
+            const fromCityRaw = fromInput.value.trim();
+            const toCityRaw = toInput.value.trim();
             
             errorMessage.textContent = '';
 
-            if (fromCity === toCity) {
-                errorMessage.textContent = 'From and To cities cannot be the same.';
-                return;
-            }
-
-            if (!fromCity || !toCity || !dateInput.value) {
+            if (!fromCityRaw || !toCityRaw || !dateInput.value) {
                 errorMessage.textContent = 'Please fill out all booking details.';
                 return;
             }
 
-            alert(`Searching for buses from ${fromCity} to ${toCity} on ${dateInput.value}...`);
+            const fromCityClean = fromCityRaw.replace('🏢 ', '');
+            const toCityClean = toCityRaw.replace('🏢 ', '');
+
+            if (fromCityClean === toCityClean) {
+                errorMessage.textContent = 'From and To cities cannot be the same.';
+                return;
+            }
+
+            // New validation: check if the cities are in the valid list
+            if (!citySet.has(fromCityClean) || !citySet.has(toCityClean)) {
+                errorMessage.textContent = 'Please select valid cities from the dropdown.';
+                return;
+            }
+
+            // If all checks pass, proceed
+            alert(`Searching for buses from ${fromCityClean} to ${toCityClean} on ${dateInput.value}...`);
         });
     </script>
 </body>
