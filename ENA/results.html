@@ -167,42 +167,68 @@
                 routeType: "Express"
             },
             {
-                from: "KISUMU",
+                from: "KISII",
                 to: "NAIROBI",
-                route: "KISUMU - NAKURU - NAIROBI",
-                price: "1,400",
+                route: "KISII - KEROKA - NAIROBI",
+                price: "1,300",
                 type: "Luxury",
                 seats: 6,
-                rating: 4.2,
-                reviews: 75,
-                time: "10:30 AM",
+                rating: 4.8,
+                reviews: 50,
+                time: "11:00 AM",
+                routeType: "Direct"
+            },
+            {
+                from: "MIGORI",
+                to: "NAIROBI",
+                route: "MIGORI - NAIROBI",
+                price: "1,500",
+                type: "Luxury",
+                seats: 10,
+                rating: 4.1,
+                reviews: 95,
+                time: "08:00 AM",
+                routeType: "Express"
+            },
+            {
+                from: "RONGO",
+                to: "NAIROBI",
+                route: "RONGO - NAIROBI",
+                price: "1,500",
+                type: "Executive",
+                seats: 12,
+                rating: 4.3,
+                reviews: 60,
+                time: "09:30 AM",
                 routeType: "Direct"
             }
         ];
 
-        const foundRoute = busRoutes.find(route => 
+        const foundRoutes = busRoutes.filter(route => 
             route.from === fromCity && 
             route.to === toCity
         );
 
-        if (foundRoute) {
-            const busCard = document.createElement('div');
-            busCard.className = 'bus-card';
-            busCard.innerHTML = `
-                <div class="route">${foundRoute.route}</div>
-                <div class="price">KES ${foundRoute.price}</div>
-                <div class="details">
-                    <span>${foundRoute.type}</span>
-                    <span>${foundRoute.seats} seats</span>
-                </div>
-                <div class="details">
-                    <span class="rating">⭐ ${foundRoute.rating}</span>
-                    <span>${foundRoute.reviews} Ratings</span>
-                    <span>${foundRoute.time}</span>
-                    <span>${foundRoute.routeType}</span>
-                </div>
-            `;
-            busResultsContainer.appendChild(busCard);
+        if (foundRoutes.length > 0) {
+            foundRoutes.forEach(route => {
+                const busCard = document.createElement('div');
+                busCard.className = 'bus-card';
+                busCard.innerHTML = `
+                    <div class="route">${route.route}</div>
+                    <div class="price">KES ${route.price}</div>
+                    <div class="details">
+                        <span>${route.type}</span>
+                        <span>${route.seats} seats</span>
+                    </div>
+                    <div class="details">
+                        <span class="rating">⭐ ${route.rating}</span>
+                        <span>${route.reviews} Ratings</span>
+                        <span>${route.time}</span>
+                        <span>${route.routeType}</span>
+                    </div>
+                `;
+                busResultsContainer.appendChild(busCard);
+            });
         } else {
             busResultsContainer.innerHTML = '<p style="text-align: center; color: #ffffff;">No buses found for this route and date.</p>';
         }
