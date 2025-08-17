@@ -135,13 +135,12 @@
         document.getElementById('route-title').textContent = `${fromCity} to ${toCity}`;
         
         const journeyDateDisplay = document.getElementById('journey-date');
-        const dateObj = new Date(date + 'T00:00:00'); // Use 'T00:00:00' to handle time zone issues
+        const dateObj = new Date(date + 'T00:00:00');
         const options = { day: 'numeric', month: 'short', year: 'numeric' };
         journeyDateDisplay.textContent = dateObj.toLocaleDateString('en-GB', options);
 
         const busResultsContainer = document.getElementById('bus-results');
 
-        // This is a static list of possible bus routes
         const busRoutes = [
             {
                 from: "BUSIA",
@@ -166,6 +165,18 @@
                 reviews: 120,
                 time: "09:00 AM",
                 routeType: "Express"
+            },
+            {
+                from: "KISUMU",
+                to: "NAIROBI",
+                route: "KISUMU - NAKURU - NAIROBI",
+                price: "1,400",
+                type: "Luxury",
+                seats: 6,
+                rating: 4.2,
+                reviews: 75,
+                time: "10:30 AM",
+                routeType: "Direct"
             }
         ];
 
