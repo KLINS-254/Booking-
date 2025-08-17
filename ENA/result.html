@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ena Coach - Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e3b06e;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+        }
+        .header {
+            width: 100%;
+            background-color: #e3b06e;
+            padding: 15px 20px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+        .header .back-button {
+            font-size: 24px;
+            color: #ffffff;
+            cursor: pointer;
+            padding-right: 15px;
+        }
+        .header .title {
+            font-size: 20px;
+            font-weight: bold;
+            flex-grow: 1;
+            text-align: center;
+        }
+        .header .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+            color: #ffffff;
+            padding-left: 15px;
+        }
+        .content {
+            width: 90%;
+            max-width: 500px;
+            padding: 20px;
+            margin-top: 80px;
+            position: relative;
+            z-index: 2;
+        }
+        .date-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #a88a5e;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+        }
+        .date-nav button {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+        .bus-card {
+            background-color: #a88a5e;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .bus-card .route {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        .bus-card .price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #e7c088;
+            text-align: right;
+        }
+        .bus-card .details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #e0e0e0;
+        }
+        .bus-card .details span {
+            font-size: 14px;
+        }
+        .bus-card .details .rating {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <span class="back-button" onclick="window.history.back()">&#8592;</span>
+        <div id="route-title" class="title">BUSIA to NAIROBI</div>
+        <span class="menu-icon">&#9776;</span>
+    </div>
+
+    <div class="content">
+        <div class="date-nav">
+            <button>&lt;</button>
+            <span id="journey-date">18 Aug 2025</span>
+            <button>&gt;</button>
+        </div>
+        
+        <div id="bus-results">
+            </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const fromCity = urlParams.get('from');
+        const toCity = urlParams.get('to');
+        const date = urlParams.get('date');
+
+        document.getElementById('route-title').textContent = `${fromCity} to ${toCity}`;
+
+        const busResultsContainer = document.getElementById('bus-results');
+
+        // This is where you would get real data from a server.
+        // For this example, we'll use a hardcoded bus result.
+        const busRoutes = [
+            {
+                from: "BUSIA",
+                to: "NAIROBI",
+                date: "2025-08-18",
+                route: "BUSIA - MUMIAS - KAPSABET - NAIROBI",
+                price: "1,600",
+                type: "Luxury",
+                seats: 4,
+                rating: 4.0,
+                reviews: 89,
+                time: "07:30 AM",
+                routeType: "Direct"
+            }
+        ];
+
+        // Find the bus route that matches the search criteria
+        const foundRoute = busRoutes.find(route => 
+            route.from === fromCity && 
+            route.to === toCity && 
+            route.date === date
+        );
+
+        if (foundRoute) {
+            document.getElementById('journey-date').textContent = new Date(foundRoute.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+            const busCard = document.createElement('div');
+            busCard.className = 'bus-card';
+            busCard.innerHTML = `
+                <div class="route">${foundRoute.route}</div>
+                <div class="price">KES ${foundRoute.price}</div>
+                <div class="details">
+                    <span>${foundRoute.type}</span>
+                    <span>${foundRoute.seats} seats</span>
+                </div>
+                <div class="details">
+                    <span class="rating">${foundRoute.rating}</span>
+                    <span>${foundRoute.reviews} Ratings</span>
+                    <span>${foundRoute.time}</span>
+                    <span>${foundRoute.routeType}</span>
+                </div>
+            `;
+            busResultsContainer.appendChild(busCard);
+        } else {
+            busResultsContainer.innerHTML = '<p style="text-align: center; color: #ffffff;">No buses found for this route and date.</p>';
+        }
+
+    </script>
+</body>
+</html>
