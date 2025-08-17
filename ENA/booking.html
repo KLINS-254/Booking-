@@ -70,6 +70,7 @@
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
+            position: relative;
         }
         .location-group {
             display: flex;
@@ -186,6 +187,30 @@
             height: 15px;
             text-align: center;
         }
+
+        /* Styles for the new autocomplete dropdown */
+        .autocomplete-list {
+            position: absolute;
+            background-color: #a88a5e;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 10;
+            max-height: 200px;
+            overflow-y: auto;
+            width: calc(100% - 40px);
+            left: 20px;
+            top: 100%;
+            margin-top: 5px;
+        }
+        .autocomplete-list-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #7c5c2a;
+            color: #ffffff;
+        }
+        .autocomplete-list-item:hover {
+            background-color: #7c5c2a;
+        }
     </style>
 </head>
 <body>
@@ -202,12 +227,12 @@
             <div class="location-group">
                 <div class="field">
                     <label for="from">FROM: Enter City</label>
-                    <input type="text" id="from" placeholder="Enter City" list="cities" autocomplete="off">
+                    <input type="text" id="from" placeholder="Enter City" autocomplete="off">
                 </div>
                 <button id="swap-button" class="swap-button">⬆️<br>⬇️</button>
                 <div class="field">
                     <label for="to">TO: Enter City</label>
-                    <input type="text" id="to" placeholder="Enter City" list="cities" autocomplete="off">
+                    <input type="text" id="to" placeholder="Enter City" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -223,9 +248,6 @@
 
         <span id="errorMessage" class="error-message"></span>
         <button id="search-button" class="search-button">Search Bus</button>
-
-        <datalist id="cities">
-            </datalist>
     </div>
 
     <script>
@@ -243,20 +265,12 @@
         const searchButton = document.getElementById('search-button');
         const errorMessage = document.getElementById('errorMessage');
         const swapButton = document.getElementById('swap-button');
-        const citiesDatalist = document.getElementById('cities');
         
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
-        // Populate the datalist for city autocomplete
-        cities.forEach(city => {
-            const option = document.createElement('option');
-            option.value = city;
-            citiesDatalist.appendChild(option);
-        });
-
         const citySet = new Set(cities);
-        
+
         // This is the correct way to set the value for a date input field
         const journeyDate = new Date('2025-08-17');
         dateInput.valueAsDate = journeyDate;
@@ -299,6 +313,50 @@
 
             window.location.href = `results.html?from=${fromCityRaw}&to=${toCityRaw}&date=${selectedDate}`;
         });
+
+        // Function to create and manage the autocomplete dropdown
+        function setupAutocomplete(inputElement) {
+            const listContainer = document.createElement('div');
+            listContainer.className = 'autocomplete-list';
+            inputElement.parentNode.appendChild(listContainer);
+            listContainer.style.display = 'none';
+
+            inputElement.addEventListener('input', () => {
+                const query = inputElement.value.trim().toUpperCase();
+                listContainer.innerHTML = '';
+                if (query.length === 0) {
+                    listContainer.style.display = 'none';
+                    return;
+                }
+                
+                const filteredCities = cities.filter(city => city.includes(query));
+                
+                if (filteredCities.length > 0) {
+                    filteredCities.forEach(city => {
+                        const item = document.createElement('div');
+                        item.className = 'autocomplete-list-item';
+                        item.textContent = city;
+                        item.addEventListener('click', () => {
+                            inputElement.value = city;
+                            listContainer.style.display = 'none';
+                        });
+                        listContainer.appendChild(item);
+                    });
+                    listContainer.style.display = 'block';
+                } else {
+                    listContainer.style.display = 'none';
+                }
+            });
+
+            inputElement.addEventListener('blur', () => {
+                setTimeout(() => {
+                    listContainer.style.display = 'none';
+                }, 200);
+            });
+        }
+
+        setupAutocomplete(fromInput);
+        setupAutocomplete(toInput);
     </script>
 </body>
 </html>
