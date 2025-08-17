@@ -8,7 +8,7 @@
         /* General Body and Layout */
         body {
             font-family: Arial, sans-serif;
-            background-color: #e2b06e; /* Matched to the new image background */
+            background-color: #e2b06e;
             color: #ffffff;
             margin: 0;
             padding: 0;
@@ -26,7 +26,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('hugo.png'); /* Watermark image */
+            background-image: url('hugo.png');
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
@@ -66,7 +66,7 @@
             margin-bottom: 20px;
         }
         .booking-section {
-            background-color: #a88a5e; /* Matched to the new image */
+            background-color: #a88a5e;
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
@@ -105,7 +105,7 @@
             top: 50%;
             right: 10px;
             transform: translateY(-50%);
-            background-color: #e7c088;
+            background-color: #a88a5e; /* Exact color of the container */
             border: none;
             border-radius: 5px;
             width: 30px;
@@ -115,10 +115,10 @@
             justify-content: center;
             cursor: pointer;
             font-size: 18px;
-            color: #ffffff;
+            color: #ffcc00; /* Yellow arrow color */
         }
         .date-section {
-            background-color: #a88a5e; /* Matched to the new image */
+            background-color: #a88a5e;
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
@@ -146,7 +146,7 @@
         }
         .date-field input {
             width: 100%;
-            padding: 10px 10px 10px 40px; /* Adjusted padding for icon */
+            padding: 10px 10px 10px 40px;
             border: none;
             border-bottom: 1px solid #7c5c2a;
             background-color: transparent;
@@ -235,13 +235,11 @@
         
         const citySet = new Set(cities);
         
-        // This is a static date picker to match the screenshot
         function formatDate(date) {
             const options = { day: 'numeric', month: 'long', year: 'numeric' };
             return new Date(date).toLocaleDateString('en-US', options);
         }
 
-        // Hardcode values to match the screenshot provided in the next turn
         fromInput.value = "BUSIA";
         toInput.value = "NAIROBI";
         const journeyDate = new Date('2025-08-17');
@@ -274,7 +272,6 @@
                 return;
             }
 
-            // Redirect to results.html with URL parameters
             window.location.href = `results.html?from=${fromCityRaw}&to=${toCityRaw}&date=${journeyDate.toISOString().split('T')[0]}`;
         });
     </script>
