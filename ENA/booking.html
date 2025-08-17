@@ -8,7 +8,7 @@
         /* General Body and Layout */
         body {
             font-family: Arial, sans-serif;
-            background-color: #e2b06e;
+            background-color: #e2b06e; /* Matched to the image background */
             color: #ffffff;
             margin: 0;
             padding: 0;
@@ -26,7 +26,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('hugo.png');
+            background-image: url('hugo.png'); /* Watermark */
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
@@ -66,7 +66,7 @@
             margin-bottom: 20px;
         }
         .booking-section {
-            background-color: #a88a5e;
+            background-color: #a88a5e; /* Matched to the box color */
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
@@ -105,20 +105,22 @@
             top: 50%;
             right: 10px;
             transform: translateY(-50%);
-            background-color: #a88a5e; /* Exact color of the container */
+            background-color: #333; /* Dark background */
             border: none;
             border-radius: 5px;
             width: 30px;
-            height: 30px;
+            height: 35px; /* Taller to accommodate stacked arrows */
             display: flex;
+            flex-direction: column; /* Stack arrows vertically */
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 16px;
             color: #ffcc00; /* Yellow arrow color */
+            line-height: 0.8;
         }
         .date-section {
-            background-color: #a88a5e;
+            background-color: #a88a5e; /* Matched to the box color */
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
@@ -139,14 +141,14 @@
             align-items: center;
         }
         .date-field .input-container::before {
-            content: '🗓️';
+            content: '🗓️'; /* Calendar emoji */
             position: absolute;
             left: 10px;
             font-size: 20px;
         }
         .date-field input {
             width: 100%;
-            padding: 10px 10px 10px 40px;
+            padding: 10px 10px 10px 40px; /* Adjusted padding for icon */
             border: none;
             border-bottom: 1px solid #7c5c2a;
             background-color: transparent;
@@ -196,7 +198,7 @@
                     <label for="from">FROM: Enter City</label>
                     <input type="text" id="from" placeholder="Enter City" autocomplete="off">
                 </div>
-                <button id="swap-button" class="swap-button">&#8645;</button>
+                <button id="swap-button" class="swap-button">⬆️<br>⬇️</button>
                 <div class="field">
                     <label for="to">TO: Enter City</label>
                     <input type="text" id="to" placeholder="Enter City" autocomplete="off">
