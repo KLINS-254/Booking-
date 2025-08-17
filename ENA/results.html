@@ -152,6 +152,7 @@
                 rating: 4.0,
                 reviews: 89,
                 time: "07:30 AM",
+                departureTime: "07:30",
                 routeType: "Direct"
             },
             {
@@ -164,6 +165,7 @@
                 rating: 4.5,
                 reviews: 120,
                 time: "09:00 AM",
+                departureTime: "09:00",
                 routeType: "Express"
             },
             {
@@ -176,6 +178,7 @@
                 rating: 4.8,
                 reviews: 50,
                 time: "11:00 AM",
+                departureTime: "11:00",
                 routeType: "Direct"
             },
             {
@@ -188,6 +191,7 @@
                 rating: 4.1,
                 reviews: 95,
                 time: "08:00 AM",
+                departureTime: "08:00",
                 routeType: "Express"
             },
             {
@@ -200,14 +204,45 @@
                 rating: 4.3,
                 reviews: 60,
                 time: "09:30 AM",
+                departureTime: "09:30",
+                routeType: "Direct"
+            },
+            {
+                from: "BOMET",
+                to: "NAIROBI",
+                route: "BOMET - NAIROBI",
+                price: "1,100",
+                type: "Economy",
+                seats: 20,
+                rating: 3.5,
+                reviews: 45,
+                time: "06:00 PM",
+                departureTime: "18:00",
                 routeType: "Direct"
             }
         ];
 
-        const foundRoutes = busRoutes.filter(route => 
-            route.from === fromCity && 
-            route.to === toCity
-        );
+        const today = new Date();
+        const selectedDate = new Date(date);
+        
+        // This check ensures we only filter by time if the selected date is today
+        const isToday = selectedDate.getDate() === today.getDate() &&
+                        selectedDate.getMonth() === today.getMonth() &&
+                        selectedDate.getFullYear() === today.getFullYear();
+
+        const foundRoutes = busRoutes.filter(route => {
+            const isMatchingRoute = route.from === fromCity && route.to === toCity;
+            
+            if (isToday) {
+                const [busHour, busMinute] = route.departureTime.split(':').map(Number);
+                const busDepartureTime = new Date();
+                busDepartureTime.setHours(busHour, busMinute, 0, 0);
+
+                return isMatchingRoute && busDepartureTime > today;
+            }
+            
+            return isMatchingRoute;
+        });
 
         if (foundRoutes.length > 0) {
             foundRoutes.forEach(route => {
