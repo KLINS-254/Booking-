@@ -271,7 +271,14 @@
 
         const citySet = new Set(cities);
 
-        // This is the correct way to set the value for a date input field
+        // Set the minimum selectable date to today
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+        const dd = String(today.getDate()).padStart(2, '0');
+        const todayString = `${yyyy}-${mm}-${dd}`;
+        dateInput.setAttribute('min', todayString);
+
+        // Set a default value for the date field
         const journeyDate = new Date('2025-08-17');
         dateInput.valueAsDate = journeyDate;
 
@@ -302,14 +309,14 @@
                 errorMessage.textContent = 'Please enter a valid city from the list.';
                 return;
             }
-
-            const selectedDateObj = new Date(selectedDate);
-            selectedDateObj.setHours(0, 0, 0, 0);
-
-            if (selectedDateObj < today) {
-                errorMessage.textContent = 'You cannot book a bus for a past date.';
-                return;
-            }
+            
+            // The check below is now redundant due to the 'min' attribute
+            // const selectedDateObj = new Date(selectedDate);
+            // selectedDateObj.setHours(0, 0, 0, 0);
+            // if (selectedDateObj < today) {
+            //     errorMessage.textContent = 'You cannot book a bus for a past date.';
+            //     return;
+            // }
 
             window.location.href = `results.html?from=${fromCityRaw}&to=${toCityRaw}&date=${selectedDate}`;
         });
