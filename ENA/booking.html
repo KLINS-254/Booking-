@@ -81,6 +81,10 @@
             text-align: left;
             position: relative;
         }
+        .location-group .field:first-of-type {
+            border-bottom: 1px solid #7c5c2a; /* The line */
+            padding-bottom: 15px; /* Adjust spacing to keep it centered */
+        }
         .location-group .field label {
             display: block;
             color: #ffffff;
@@ -91,7 +95,6 @@
             width: 100%;
             padding: 10px;
             border: none;
-            border-bottom: 1px solid #7c5c2a;
             background-color: transparent;
             color: #ffffff;
             font-size: 16px;
@@ -105,7 +108,7 @@
             top: 50%;
             right: 10px;
             transform: translateY(-50%);
-            background-color: #333; /* Dark background */
+            background-color: #333;
             border: none;
             border-radius: 5px;
             width: 30px;
@@ -118,18 +121,9 @@
             font-size: 16px;
             color: #ffcc00;
             line-height: 0.8;
-            padding-top: 5px; /* Add padding to separate the arrows */
+            padding-top: 5px;
             padding-bottom: 5px;
-            z-index: 2; /* Ensure it is above the content */
-        }
-        .swap-button::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 1px;
-            background-color: #ffffff;
-            top: 50%;
-            transform: translateY(-50%);
+            z-index: 2;
         }
         .date-section {
             background-color: #a88a5e;
@@ -142,11 +136,11 @@
             position: relative;
         }
         .date-field label {
-                display: block;
-                color: #ffffff;
-                font-weight: bold;
-                margin-bottom: 5px;
-            }
+            display: block;
+            color: #ffffff;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
         .date-field .input-container {
             position: relative;
             display: flex;
