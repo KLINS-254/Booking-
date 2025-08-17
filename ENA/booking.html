@@ -82,8 +82,8 @@
             position: relative;
         }
         .location-group .field:first-of-type {
-            border-bottom: 1px solid #7c5c2a; /* The line */
-            padding-bottom: 15px; /* Adjust spacing to keep it centered */
+            border-bottom: 1px solid #7c5c2a;
+            padding-bottom: 15px;
         }
         .location-group .field label {
             display: block;
@@ -216,7 +216,7 @@
             <div class="date-field">
                 <label for="date">Journey Date</label>
                 <div class="input-container">
-                    <input type="text" id="date" readonly>
+                    <input type="date" id="date">
                 </div>
             </div>
         </div>
@@ -250,8 +250,10 @@
 
         fromInput.value = "BUSIA";
         toInput.value = "NAIROBI";
+        
+        // This is the correct way to set the value for a date input field
         const journeyDate = new Date('2025-08-17');
-        dateInput.value = formatDate(journeyDate);
+        dateInput.valueAsDate = journeyDate;
 
         swapButton.addEventListener('click', () => {
             const fromValue = fromInput.value;
@@ -262,10 +264,11 @@
         searchButton.addEventListener('click', () => {
             const fromCityRaw = fromInput.value.trim().toUpperCase();
             const toCityRaw = toInput.value.trim().toUpperCase();
+            const selectedDate = dateInput.value;
             
             errorMessage.textContent = '';
 
-            if (!fromCityRaw || !toCityRaw || !dateInput.value) {
+            if (!fromCityRaw || !toCityRaw || !selectedDate) {
                 errorMessage.textContent = 'Please fill out all booking details.';
                 return;
             }
@@ -280,7 +283,7 @@
                 return;
             }
 
-            window.location.href = `results.html?from=${fromCityRaw}&to=${toCityRaw}&date=${journeyDate.toISOString().split('T')[0]}`;
+            window.location.href = `results.html?from=${fromCityRaw}&to=${toCityRaw}&date=${selectedDate}`;
         });
     </script>
 </body>
