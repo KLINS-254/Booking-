@@ -8,7 +8,7 @@
         /* General Body and Layout */
         body {
             font-family: Arial, sans-serif;
-            background-color: #e3b06e;
+            background-color: #e2b06e; /* Matched to the new image background */
             color: #ffffff;
             margin: 0;
             padding: 0;
@@ -26,7 +26,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('hugo.png');
+            background-image: url('hugo.png'); /* Watermark image */
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
@@ -64,14 +64,12 @@
             font-weight: bold;
             line-height: 1.2;
             margin-bottom: 20px;
-            color: #ffffff;
         }
         .booking-section {
-            background-color: #a88a5e;
+            background-color: #a88a5e; /* Matched to the new image */
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
-            position: relative;
         }
         .location-group {
             display: flex;
@@ -82,7 +80,6 @@
         .location-group .field {
             text-align: left;
             position: relative;
-            z-index: 1;
         }
         .location-group .field label {
             display: block;
@@ -94,62 +91,68 @@
             width: 100%;
             padding: 10px;
             border: none;
-            border-radius: 5px;
-            background-color: #ffffff;
-            color: #000000;
+            border-bottom: 1px solid #7c5c2a;
+            background-color: transparent;
+            color: #ffffff;
             font-size: 16px;
             box-sizing: border-box;
-            text-align: center;
         }
         .location-group .field input::placeholder {
-            color: #7b5b2e;
+            color: #e0e0e0;
         }
         .swap-button {
             position: absolute;
             top: 50%;
-            right: -20px;
+            right: 10px;
             transform: translateY(-50%);
-            background-color: #e3b06e;
+            background-color: #e7c088;
             border: none;
             border-radius: 5px;
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 24px;
+            font-size: 18px;
             color: #ffffff;
-            font-weight: bold;
-            z-index: 2;
         }
         .date-section {
-            background-color: #a88a5e;
+            background-color: #a88a5e; /* Matched to the new image */
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
-            text-align: left;
-            position: relative;
         }
         .date-field {
             text-align: left;
+            position: relative;
         }
         .date-field label {
             display: block;
             color: #ffffff;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+        }
+        .date-field .input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .date-field .input-container::before {
+            content: '🗓️';
+            position: absolute;
+            left: 10px;
+            font-size: 20px;
         }
         .date-field input {
             width: 100%;
-            padding: 10px;
+            padding: 10px 10px 10px 40px; /* Adjusted padding for icon */
             border: none;
-            border-radius: 5px;
-            background-color: #ffffff;
-            color: #000000;
+            border-bottom: 1px solid #7c5c2a;
+            background-color: transparent;
+            color: #ffffff;
             font-size: 16px;
             box-sizing: border-box;
-            text-align: center;
         }
         .search-button {
             width: 100%;
@@ -193,18 +196,20 @@
                     <label for="from">FROM: Enter City</label>
                     <input type="text" id="from" placeholder="Enter City" autocomplete="off">
                 </div>
+                <button id="swap-button" class="swap-button">&#8645;</button>
                 <div class="field">
                     <label for="to">TO: Enter City</label>
                     <input type="text" id="to" placeholder="Enter City" autocomplete="off">
                 </div>
             </div>
-            <button id="swap-button" class="swap-button">&#8645;</button>
         </div>
 
         <div class="date-section">
             <div class="date-field">
                 <label for="date">Journey Date</label>
-                <input type="date" id="date">
+                <div class="input-container">
+                    <input type="text" id="date" readonly>
+                </div>
             </div>
         </div>
 
@@ -229,9 +234,18 @@
         const swapButton = document.getElementById('swap-button');
         
         const citySet = new Set(cities);
+        
+        // This is a static date picker to match the screenshot
+        function formatDate(date) {
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            return new Date(date).toLocaleDateString('en-US', options);
+        }
 
-        const today = new Date().toISOString().split('T')[0];
-        dateInput.setAttribute('min', today);
+        // Hardcode values to match the screenshot provided in the next turn
+        fromInput.value = "BUSIA";
+        toInput.value = "NAIROBI";
+        const journeyDate = new Date('2025-08-17');
+        dateInput.value = formatDate(journeyDate);
 
         swapButton.addEventListener('click', () => {
             const fromValue = fromInput.value;
@@ -242,11 +256,10 @@
         searchButton.addEventListener('click', () => {
             const fromCityRaw = fromInput.value.trim().toUpperCase();
             const toCityRaw = toInput.value.trim().toUpperCase();
-            const journeyDate = dateInput.value;
             
             errorMessage.textContent = '';
 
-            if (!fromCityRaw || !toCityRaw || !journeyDate) {
+            if (!fromCityRaw || !toCityRaw || !dateInput.value) {
                 errorMessage.textContent = 'Please fill out all booking details.';
                 return;
             }
@@ -262,7 +275,7 @@
             }
 
             // Redirect to results.html with URL parameters
-            window.location.href = `results.html?from=${fromCityRaw}&to=${toCityRaw}&date=${journeyDate}`;
+            window.location.href = `results.html?from=${fromCityRaw}&to=${toCityRaw}&date=${journeyDate.toISOString().split('T')[0]}`;
         });
     </script>
 </body>
