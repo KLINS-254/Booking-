@@ -142,125 +142,20 @@
         const busResultsContainer = document.getElementById('bus-results');
 
         const busRoutes = [
-            // Routes to NAIROBI
+            // Routes originating from Nairobi
             {
-                from: "AWENDO",
-                to: "NAIROBI",
-                route: "AWENDO - NAIROBI",
+                from: "NAIROBI",
+                to: "BUSIA",
+                route: "NAIROBI - BUNGOMA - BUSIA",
                 price: "1,600",
                 type: "Luxury",
-                seats: 10,
-                rating: 4.5,
-                reviews: 55,
-                time: "08:30 AM",
-                departureTime: "08:30",
+                seats: 15,
+                rating: 4.6,
+                reviews: 210,
+                time: "07:00 AM",
+                departureTime: "07:00",
                 routeType: "Direct"
             },
-            {
-                from: "AWENDO",
-                to: "NAIROBI",
-                route: "AWENDO - KERICHO - NAIROBI",
-                price: "1,600",
-                type: "Executive",
-                seats: 7,
-                rating: 4.2,
-                reviews: 80,
-                time: "01:00 PM",
-                departureTime: "13:00",
-                routeType: "Direct"
-            },
-            {
-                from: "BOMET",
-                to: "NAIROBI",
-                route: "BOMET - NAIROBI",
-                price: "1,600",
-                type: "Luxury",
-                seats: 20,
-                rating: 3.5,
-                reviews: 45,
-                time: "06:00 PM",
-                departureTime: "18:00",
-                routeType: "Direct"
-            },
-            {
-                from: "BUSIA",
-                to: "NAIROBI",
-                route: "BUSIA - MUMIAS - KAPSABET - NAIROBI",
-                price: "1,600",
-                type: "Luxury",
-                seats: 4,
-                rating: 4.0,
-                reviews: 89,
-                time: "07:30 AM",
-                departureTime: "07:30",
-                routeType: "Direct"
-            },
-            {
-                from: "KISII",
-                to: "NAIROBI",
-                route: "KISII - KEROKA - NAKURU - NAIROBI",
-                price: "1,600",
-                type: "Executive",
-                seats: 8,
-                rating: 4.5,
-                reviews: 120,
-                time: "09:00 AM",
-                departureTime: "09:00",
-                routeType: "Express"
-            },
-            {
-                from: "KISII",
-                to: "NAIROBI",
-                route: "KISII - KEROKA - NAIROBI",
-                price: "1,600",
-                type: "Luxury",
-                seats: 6,
-                rating: 4.8,
-                reviews: 50,
-                time: "11:00 AM",
-                departureTime: "11:00",
-                routeType: "Direct"
-            },
-            {
-                from: "KISUMU",
-                to: "NAIROBI",
-                route: "KISUMU - NAKURU - NAIROBI",
-                price: "1,600",
-                type: "Luxury",
-                seats: 6,
-                rating: 4.2,
-                reviews: 75,
-                time: "10:30 AM",
-                departureTime: "10:30",
-                routeType: "Direct"
-            },
-            {
-                from: "MIGORI",
-                to: "NAIROBI",
-                route: "MIGORI - NAIROBI",
-                price: "1,600",
-                type: "Luxury",
-                seats: 10,
-                rating: 4.1,
-                reviews: 95,
-                time: "08:00 AM",
-                departureTime: "08:00",
-                routeType: "Express"
-            },
-            {
-                from: "RONGO",
-                to: "NAIROBI",
-                route: "RONGO - NAIROBI",
-                price: "1,600",
-                type: "Executive",
-                seats: 12,
-                rating: 4.3,
-                reviews: 60,
-                time: "09:30 AM",
-                departureTime: "09:30",
-                routeType: "Direct"
-            },
-            // Routes from NAIROBI
             {
                 from: "NAIROBI",
                 to: "AWENDO",
@@ -355,19 +250,6 @@
             {
                 from: "NAIROBI",
                 to: "KISUMU",
-                route: "NAIROBI - KISUMU - UGUNJA - BUSIA",
-                price: "1,600",
-                type: "Luxury",
-                seats: 1,
-                rating: 4.4,
-                reviews: 298,
-                time: "07:30 AM",
-                departureTime: "07:30",
-                routeType: "Direct"
-            },
-            {
-                from: "NAIROBI",
-                to: "KISUMU",
                 route: "NAIROBI - KISUMU",
                 price: "1,600",
                 type: "Luxury",
@@ -441,6 +323,86 @@
                 reviews: 35,
                 time: "10:00 PM",
                 departureTime: "22:00",
+                routeType: "Direct"
+            },
+            
+            // Routes with other cities as origin, going to Nairobi
+            {
+                from: "BUSIA",
+                to: "NAIROBI",
+                route: "BUSIA - MUMIAS - KAPSABET - NAIROBI",
+                price: "1,600",
+                type: "Luxury",
+                seats: 4,
+                rating: 4.0,
+                reviews: 89,
+                time: "07:30 AM",
+                departureTime: "07:30",
+                routeType: "Direct"
+            },
+            {
+                from: "KISII",
+                to: "NAIROBI",
+                route: "KISII - KEROKA - NAKURU - NAIROBI",
+                price: "1,600",
+                type: "Executive",
+                seats: 8,
+                rating: 4.5,
+                reviews: 120,
+                time: "09:00 AM",
+                departureTime: "09:00",
+                routeType: "Express"
+            },
+            {
+                from: "KISII",
+                to: "NAIROBI",
+                route: "KISII - KEROKA - NAIROBI",
+                price: "1,600",
+                type: "Luxury",
+                seats: 6,
+                rating: 4.8,
+                reviews: 50,
+                time: "11:00 AM",
+                departureTime: "11:00",
+                routeType: "Direct"
+            },
+            {
+                from: "MIGORI",
+                to: "NAIROBI",
+                route: "MIGORI - NAIROBI",
+                price: "1,600",
+                type: "Luxury",
+                seats: 10,
+                rating: 4.1,
+                reviews: 95,
+                time: "08:00 AM",
+                departureTime: "08:00",
+                routeType: "Express"
+            },
+            {
+                from: "RONGO",
+                to: "NAIROBI",
+                route: "RONGO - NAIROBI",
+                price: "1,600",
+                type: "Executive",
+                seats: 12,
+                rating: 4.3,
+                reviews: 60,
+                time: "09:30 AM",
+                departureTime: "09:30",
+                routeType: "Direct"
+            },
+            {
+                from: "BOMET",
+                to: "NAIROBI",
+                route: "BOMET - NAIROBI",
+                price: "1,600",
+                type: "Economy",
+                seats: 20,
+                rating: 3.5,
+                reviews: 45,
+                time: "06:00 PM",
+                departureTime: "18:00",
                 routeType: "Direct"
             }
         ];
