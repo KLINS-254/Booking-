@@ -64,6 +64,7 @@
             border-radius: 10px;
             padding: 10px 15px;
             margin-bottom: 20px;
+            color: #ffffff;
         }
         .date-nav button {
             background: none;
@@ -80,6 +81,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            margin-bottom: 15px;
         }
         .bus-card .route {
             font-size: 18px;
@@ -109,14 +111,14 @@
 <body>
     <div class="header">
         <span class="back-button" onclick="window.history.back()">&#8592;</span>
-        <div id="route-title" class="title">BUSIA to NAIROBI</div>
+        <div id="route-title" class="title"></div>
         <span class="menu-icon">&#9776;</span>
     </div>
 
     <div class="content">
         <div class="date-nav">
             <button>&lt;</button>
-            <span id="journey-date">18 Aug 2025</span>
+            <span id="journey-date"></span>
             <button>&gt;</button>
         </div>
         
@@ -131,16 +133,19 @@
         const date = urlParams.get('date');
 
         document.getElementById('route-title').textContent = `${fromCity} to ${toCity}`;
+        
+        const journeyDateDisplay = document.getElementById('journey-date');
+        const dateObj = new Date(date + 'T00:00:00'); // Use 'T00:00:00' to handle time zone issues
+        const options = { day: 'numeric', month: 'short', year: 'numeric' };
+        journeyDateDisplay.textContent = dateObj.toLocaleDateString('en-GB', options);
 
         const busResultsContainer = document.getElementById('bus-results');
 
-        // This is where you would get real data from a server.
-        // For this example, we'll use a hardcoded bus result.
+        // This is a static list of possible bus routes
         const busRoutes = [
             {
                 from: "BUSIA",
                 to: "NAIROBI",
-                date: "2025-08-18",
                 route: "BUSIA - MUMIAS - KAPSABET - NAIROBI",
                 price: "1,600",
                 type: "Luxury",
@@ -149,19 +154,27 @@
                 reviews: 89,
                 time: "07:30 AM",
                 routeType: "Direct"
+            },
+            {
+                from: "KISII",
+                to: "NAIROBI",
+                route: "KISII - KEROKA - NAKURU - NAIROBI",
+                price: "1,200",
+                type: "Executive",
+                seats: 8,
+                rating: 4.5,
+                reviews: 120,
+                time: "09:00 AM",
+                routeType: "Express"
             }
         ];
 
-        // Find the bus route that matches the search criteria
         const foundRoute = busRoutes.find(route => 
             route.from === fromCity && 
-            route.to === toCity && 
-            route.date === date
+            route.to === toCity
         );
 
         if (foundRoute) {
-            document.getElementById('journey-date').textContent = new Date(foundRoute.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-
             const busCard = document.createElement('div');
             busCard.className = 'bus-card';
             busCard.innerHTML = `
@@ -172,7 +185,7 @@
                     <span>${foundRoute.seats} seats</span>
                 </div>
                 <div class="details">
-                    <span class="rating">${foundRoute.rating}</span>
+                    <span class="rating">⭐ ${foundRoute.rating}</span>
                     <span>${foundRoute.reviews} Ratings</span>
                     <span>${foundRoute.time}</span>
                     <span>${foundRoute.routeType}</span>
@@ -182,7 +195,6 @@
         } else {
             busResultsContainer.innerHTML = '<p style="text-align: center; color: #ffffff;">No buses found for this route and date.</p>';
         }
-
     </script>
 </body>
 </html>
