@@ -8,7 +8,7 @@
         /* General Body and Layout */
         body {
             font-family: Arial, sans-serif;
-            background-color: #e2b06e; /* Matched to the image background */
+            background-color: #e2b06e;
             color: #ffffff;
             margin: 0;
             padding: 0;
@@ -26,7 +26,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('hugo.png'); /* Watermark */
+            background-image: url('hugo.png');
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
@@ -66,7 +66,7 @@
             margin-bottom: 20px;
         }
         .booking-section {
-            background-color: #a88a5e; /* Matched to the box color */
+            background-color: #a88a5e;
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
@@ -109,18 +109,30 @@
             border: none;
             border-radius: 5px;
             width: 30px;
-            height: 35px; /* Taller to accommodate stacked arrows */
+            height: 35px;
             display: flex;
-            flex-direction: column; /* Stack arrows vertically */
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             font-size: 16px;
-            color: #ffcc00; /* Yellow arrow color */
+            color: #ffcc00;
             line-height: 0.8;
+            padding-top: 5px; /* Add padding to separate the arrows */
+            padding-bottom: 5px;
+            z-index: 2; /* Ensure it is above the content */
+        }
+        .swap-button::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background-color: #ffffff;
+            top: 50%;
+            transform: translateY(-50%);
         }
         .date-section {
-            background-color: #a88a5e; /* Matched to the box color */
+            background-color: #a88a5e;
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
@@ -130,25 +142,25 @@
             position: relative;
         }
         .date-field label {
-            display: block;
-            color: #ffffff;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
+                display: block;
+                color: #ffffff;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
         .date-field .input-container {
             position: relative;
             display: flex;
             align-items: center;
         }
         .date-field .input-container::before {
-            content: '🗓️'; /* Calendar emoji */
+            content: '🗓️';
             position: absolute;
             left: 10px;
             font-size: 20px;
         }
         .date-field input {
             width: 100%;
-            padding: 10px 10px 10px 40px; /* Adjusted padding for icon */
+            padding: 10px 10px 10px 40px;
             border: none;
             border-bottom: 1px solid #7c5c2a;
             background-color: transparent;
