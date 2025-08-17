@@ -202,12 +202,12 @@
             <div class="location-group">
                 <div class="field">
                     <label for="from">FROM: Enter City</label>
-                    <input type="text" id="from" placeholder="Enter City" autocomplete="off">
+                    <input type="text" id="from" placeholder="Enter City" list="cities" autocomplete="off">
                 </div>
                 <button id="swap-button" class="swap-button">⬆️<br>⬇️</button>
                 <div class="field">
                     <label for="to">TO: Enter City</label>
-                    <input type="text" id="to" placeholder="Enter City" autocomplete="off">
+                    <input type="text" id="to" placeholder="Enter City" list="cities" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -223,6 +223,9 @@
 
         <span id="errorMessage" class="error-message"></span>
         <button id="search-button" class="search-button">Search Bus</button>
+
+        <datalist id="cities">
+            </datalist>
     </div>
 
     <script>
@@ -240,16 +243,19 @@
         const searchButton = document.getElementById('search-button');
         const errorMessage = document.getElementById('errorMessage');
         const swapButton = document.getElementById('swap-button');
+        const citiesDatalist = document.getElementById('cities');
         
-        const citySet = new Set(cities);
-        
-        function formatDate(date) {
-            const options = { day: 'numeric', month: 'long', year: 'numeric' };
-            return new Date(date).toLocaleDateString('en-US', options);
-        }
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
-        fromInput.value = "BUSIA";
-        toInput.value = "NAIROBI";
+        // Populate the datalist for city autocomplete
+        cities.forEach(city => {
+            const option = document.createElement('option');
+            option.value = city;
+            citiesDatalist.appendChild(option);
+        });
+
+        const citySet = new Set(cities);
         
         // This is the correct way to set the value for a date input field
         const journeyDate = new Date('2025-08-17');
@@ -279,7 +285,15 @@
             }
             
             if (!citySet.has(fromCityRaw) || !citySet.has(toCityRaw)) {
-                errorMessage.textContent = 'Please enter valid cities from the list.';
+                errorMessage.textContent = 'Please enter a valid city from the list.';
+                return;
+            }
+
+            const selectedDateObj = new Date(selectedDate);
+            selectedDateObj.setHours(0, 0, 0, 0);
+
+            if (selectedDateObj < today) {
+                errorMessage.textContent = 'You cannot book a bus for a past date.';
                 return;
             }
 
