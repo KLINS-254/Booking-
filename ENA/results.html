@@ -300,41 +300,25 @@
             
             // Routes that pass through other cities to Nairobi
             {
-                from: "BUSIA", to: "NAIROBI", route: "BUSIA - KAKAMEGA - NAKURU - NAIROBI",
+                from: "BUSIA", to: "NAIROBI", route: "BUSIA - KAKAMEGA - NAIROBI",
                 price: "1,600", type: "Shuttle", seats: 12, rating: 4.5, reviews: 20, time: "06:00 AM", departureTime: "06:00", routeType: "Direct"
             },
             {
-                from: "BUSIA", to: "NAIROBI", route: "BUSIA - KISUMU - NAKURU - NAIROBI",
+                from: "BUSIA", to: "NAIROBI", route: "BUSIA - KISUMU - NAIROBI",
                 price: "1,600", type: "Luxury", seats: 49, rating: 4.7, reviews: 110, time: "08:00 AM", departureTime: "08:00", routeType: "Express"
             },
             {
-                from: "BUSIA", to: "NAIROBI", route: "BUSIA - KAPSABET - NAKURU - NAIROBI",
+                from: "BUSIA", to: "NAIROBI", route: "BUSIA - KAPSABET - NAIROBI",
                 price: "1,600", type: "Luxo", seats: 14, rating: 4.6, reviews: 55, time: "11:00 AM", departureTime: "11:00", routeType: "Direct"
             },
             {
-                from: "BUSIA", to: "NAIROBI", route: "BUSIA - NAKURU - NAIROBI",
+                from: "BUSIA", to: "NAIROBI", route: "BUSIA - NAIROBI",
                 price: "1,600", type: "Shuttle", seats: 12, rating: 4.8, reviews: 75, time: "03:00 PM", departureTime: "15:00", routeType: "Direct"
             },
             {
-                from: "BUSIA", to: "NAIROBI", route: "BUSIA - KISUMU - NAKURU - NAIROBI",
+                from: "BUSIA", to: "NAIROBI", route: "BUSIA - KISUMU - NAIROBI",
                 price: "1,600", type: "Luxury", seats: 49, rating: 4.6, reviews: 90, time: "06:30 PM", departureTime: "18:30", routeType: "Express"
-            },
-            {
-                from: "NAKURU", to: "NAIROBI", route: "NAKURU - ELDORET - BUSIA - NAIROBI",
-                price: "1,600", type: "Luxury", seats: 49, rating: 4.5, reviews: 120, time: "07:00 AM", departureTime: "07:00", routeType: "Express"
-            },
-            {
-                from: "NAKURU", to: "NAIROBI", route: "NAKURU - KAKAMEGA - BUSIA - NAIROBI",
-                price: "1,600", type: "Luxo", seats: 14, rating: 4.2, reviews: 40, time: "10:00 AM", departureTime: "10:00", routeType: "Direct"
-            },
-            {
-                from: "NAKURU", to: "NAIROBI", route: "NAKURU - KISUMU - BUSIA - NAIROBI",
-                price: "1,600", type: "Shuttle", seats: 12, rating: 4.4, reviews: 60, time: "02:00 PM", departureTime: "14:00", routeType: "Direct"
-            },
-            {
-                from: "NAKURU", to: "NAIROBI", route: "NAKURU - ELDORET - BUSIA - NAIROBI",
-                price: "1,600", type: "Luxury", seats: 49, rating: 4.7, reviews: 85, time: "07:30 PM", departureTime: "19:30", routeType: "Express"
-            },
+            }
         ];
 
         function displayBuses() {
@@ -352,14 +336,14 @@
                 const routeDescription = route.route.toUpperCase();
                 const userFrom = fromCity.toUpperCase();
                 const userTo = toCity.toUpperCase();
-
-                // Check if the route directly matches the search criteria (from -> to)
+                
+                // New logic: Check if the route directly matches the search criteria (from -> to)
                 const isDirectMatch = routeFrom === userFrom && routeTo === userTo;
                 
-                // Check if the route passes through both cities, regardless of start/end point
-                const isPassingThrough = routeDescription.includes(userFrom) && routeDescription.includes(userTo);
-                
-                return isDirectMatch || isPassingThrough;
+                // Add an additional check to ensure the route description contains both cities in the correct order
+                const isCorrectDirection = routeDescription.indexOf(userFrom) < routeDescription.indexOf(userTo);
+
+                return isDirectMatch && isCorrectDirection;
             }).sort((a, b) => {
                 // Sort by departure time
                 const timeA = a.departureTime.split(':').map(Number);
