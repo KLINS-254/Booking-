@@ -166,16 +166,29 @@
         const busResultsContainer = document.getElementById('bus-results');
 
         const busRoutes = [
-            // Routes originating from Nairobi
+            // Nairobi to Awendo
             {
                 from: "NAIROBI",
-                to: "BUSIA",
-                route: "NAIROBI - BUNGOMA - BUSIA",
-                price: "1,600",
-                type: "Luxury",
-                seats: 15,
-                rating: 4.6,
-                reviews: 210,
+                to: "AWENDO",
+                route: "NAIROBI - MIGORI - AWENDO",
+                price: "1,500",
+                type: "Shuttle",
+                seats: 12,
+                rating: 4.5,
+                reviews: 50,
+                time: "05:30 AM",
+                departureTime: "05:30",
+                routeType: "Direct"
+            },
+            {
+                from: "NAIROBI",
+                to: "AWENDO",
+                route: "NAIROBI - KEHANCHA - AWENDO",
+                price: "1,500",
+                type: "Luxo",
+                seats: 14,
+                rating: 4.2,
+                reviews: 120,
                 time: "07:00 AM",
                 departureTime: "07:00",
                 routeType: "Direct"
@@ -185,183 +198,40 @@
                 to: "AWENDO",
                 route: "NAIROBI - AWENDO",
                 price: "1,500",
-                type: "Luxo",
-                seats: 11,
-                rating: 4.0,
-                reviews: 18,
-                time: "05:00 AM",
-                departureTime: "05:00",
-                routeType: "Direct"
-            },
-            {
-                from: "NAIROBI",
-                to: "KEHANCHA",
-                route: "NAIROBI - KEHANCHA",
-                price: "1,500",
                 type: "Luxury",
-                seats: 8,
-                rating: 4.0,
-                reviews: 178,
-                time: "07:30 AM",
-                departureTime: "07:30",
-                routeType: "Direct"
-            },
-            {
-                from: "NAIROBI",
-                to: "SIRARE",
-                route: "NAIROBI - SIRARE",
-                price: "1,500",
-                type: "Luxury",
-                seats: 7,
-                rating: 4.3,
-                reviews: 260,
-                time: "08:00 AM",
-                departureTime: "08:00",
-                routeType: "Direct"
-            },
-            {
-                from: "NAIROBI",
-                to: "MIGORI",
-                route: "NAIROBI - MIGORI",
-                price: "1,500",
-                type: "Shuttle",
-                seats: 6,
-                rating: 5.0,
-                reviews: 1,
+                seats: 49,
+                rating: 4.8,
+                reviews: 300,
                 time: "09:00 AM",
                 departureTime: "09:00",
-                routeType: "Direct"
+                routeType: "Express"
             },
+
+            // Awendo to Nairobi
             {
-                from: "NAIROBI",
-                to: "MIGORI",
-                route: "NAIROBI - MIGORI",
+                from: "AWENDO",
+                to: "NAIROBI",
+                route: "AWENDO - MIGORI - NAIROBI",
                 price: "1,500",
                 type: "Shuttle",
-                seats: 8,
-                rating: 4.9,
-                reviews: 7,
-                time: "02:00 PM",
-                departureTime: "14:00",
-                routeType: "Direct"
-            },
-            {
-                from: "NAIROBI",
-                to: "SIRARE",
-                route: "NAIROBI - SIRARE",
-                price: "1,500",
-                type: "Luxury",
-                seats: 20,
-                rating: 4.2,
-                reviews: 245,
-                time: "07:30 PM",
-                departureTime: "19:30",
-                routeType: "Direct"
-            },
-            {
-                from: "NAIROBI",
-                to: "KEHANCHA",
-                route: "NAIROBI - KEHANCHA",
-                price: "1,500",
-                type: "Luxury",
-                seats: 26,
-                rating: 4.2,
-                reviews: 320,
-                time: "08:00 PM",
-                departureTime: "20:00",
-                routeType: "Direct"
-            },
-            {
-                from: "NAIROBI",
-                to: "KISUMU",
-                route: "NAIROBI - KISUMU",
-                price: "1,600",
-                type: "Luxury",
                 seats: 12,
-                rating: 4.3,
-                reviews: 423,
-                time: "10:00 PM",
-                departureTime: "22:00",
+                rating: 4.5,
+                reviews: 50,
+                time: "06:00 AM",
+                departureTime: "06:00",
                 routeType: "Direct"
             },
             {
-                from: "NAIROBI",
-                to: "NAKURU",
-                route: "NAIROBI - NAKURU",
-                price: "1,600",
-                type: "Luxury",
-                seats: 1,
-                rating: 4.4,
-                reviews: 298,
-                time: "07:30 AM",
-                departureTime: "07:30",
-                routeType: "Direct"
-            },
-            {
-                from: "NAIROBI",
-                to: "NAKURU",
-                route: "NAIROBI - NAKURU",
-                price: "1,600",
-                type: "Luxo",
-                seats: 1,
-                rating: 4.0,
-                reviews: 31,
-                time: "08:00 AM",
-                departureTime: "08:00",
-                routeType: "Direct"
-            },
-            {
-                from: "NAIROBI",
-                to: "NAKURU",
-                route: "NAIROBI - NAKURU",
-                price: "1,600",
-                type: "Luxury",
-                seats: 2,
-                rating: 4.4,
-                reviews: 351,
-                time: "08:00 PM",
-                departureTime: "20:00",
-                routeType: "Direct"
-            },
-            {
-                from: "NAIROBI",
-                to: "NAKURU",
-                route: "NAIROBI - NAKURU",
-                price: "1,600",
-                type: "Luxo",
-                seats: 11,
-                rating: 4.0,
-                reviews: 40,
-                time: "08:30 PM",
-                departureTime: "20:30",
-                routeType: "Direct"
-            },
-            {
-                from: "NAIROBI",
-                to: "MBALE",
-                route: "NAIROBI - MBALE",
-                price: "1,600",
-                type: "Luxo",
-                seats: 4,
-                rating: 4.2,
-                reviews: 35,
-                time: "10:00 PM",
-                departureTime: "22:00",
-                routeType: "Direct"
-            },
-            
-            // Routes with other cities as origin, going to Nairobi
-            {
-                from: "BUSIA",
+                from: "AWENDO",
                 to: "NAIROBI",
-                route: "BUSIA - MUMIAS - KAPSABET - NAIROBI",
-                price: "1,600",
-                type: "Luxury",
-                seats: 4,
-                rating: 4.0,
-                reviews: 89,
-                time: "07:30 AM",
-                departureTime: "07:30",
+                route: "AWENDO - KEHANCHA - NAIROBI",
+                price: "1,500",
+                type: "Luxo",
+                seats: 14,
+                rating: 4.2,
+                reviews: 120,
+                time: "08:30 AM",
+                departureTime: "08:30",
                 routeType: "Direct"
             },
             {
@@ -369,92 +239,55 @@
                 to: "NAIROBI",
                 route: "AWENDO - NAIROBI",
                 price: "1,500",
-                type: "Luxo",
-                seats: 11,
-                rating: 4.0,
-                reviews: 18,
-                time: "05:00 AM",
-                departureTime: "05:00",
-                routeType: "Direct"
-            },
-            {
-                from: "KEHANCHA",
-                to: "NAIROBI",
-                route: "KEHANCHA - NAIROBI",
-                price: "1,500",
                 type: "Luxury",
-                seats: 8,
-                rating: 4.0,
-                reviews: 178,
-                time: "07:30 AM",
-                departureTime: "07:30",
-                routeType: "Direct"
+                seats: 49,
+                rating: 4.8,
+                reviews: 300,
+                time: "10:30 AM",
+                departureTime: "10:30",
+                routeType: "Express"
             },
+            
+            // Other routes (for variety)
             {
-                from: "SIRARE",
-                to: "NAIROBI",
-                route: "SIRARE - NAIROBI",
-                price: "1,500",
+                from: "NAIROBI",
+                to: "KISUMU",
+                route: "NAIROBI - KISUMU",
+                price: "1,600",
                 type: "Luxury",
-                seats: 7,
-                rating: 4.3,
-                reviews: 260,
-                time: "08:00 AM",
-                departureTime: "08:00",
+                seats: 49,
+                rating: 4.7,
+                reviews: 500,
+                time: "10:00 PM",
+                departureTime: "22:00",
                 routeType: "Direct"
             },
             {
-                from: "MIGORI",
-                to: "NAIROBI",
-                route: "MIGORI - NAIROBI",
-                price: "1,500",
+                from: "NAIROBI",
+                to: "BUSIA",
+                route: "NAIROBI - BUNGOMA - BUSIA",
+                price: "1,600",
+                type: "Luxury",
+                seats: 49,
+                rating: 4.6,
+                reviews: 210,
+                time: "07:00 AM",
+                departureTime: "07:00",
+                routeType: "Direct"
+            },
+            {
+                from: "NAIROBI",
+                to: "NAKURU",
+                route: "NAIROBI - NAKURU",
+                price: "1,200",
                 type: "Shuttle",
-                seats: 6,
-                rating: 5.0,
-                reviews: 1,
+                seats: 12,
+                rating: 4.8,
+                reviews: 90,
                 time: "09:00 AM",
                 departureTime: "09:00",
                 routeType: "Direct"
             },
-            {
-                from: "MIGORI",
-                to: "NAIROBI",
-                route: "MIGORI - NAIROBI",
-                price: "1,500",
-                type: "Shuttle",
-                seats: 8,
-                rating: 4.9,
-                reviews: 7,
-                time: "02:00 PM",
-                departureTime: "14:00",
-                routeType: "Direct"
-            },
-            {
-                from: "RONGO",
-                to: "NAIROBI",
-                route: "RONGO - NAIROBI",
-                price: "1,600",
-                type: "Executive",
-                seats: 12,
-                rating: 4.3,
-                reviews: 60,
-                time: "09:30 AM",
-                departureTime: "09:30",
-                routeType: "Direct"
-            },
-            {
-                from: "BOMET",
-                to: "NAIROBI",
-                route: "BOMET - NAIROBI",
-                price: "1,600",
-                type: "Economy",
-                seats: 20,
-                rating: 3.5,
-                reviews: 45,
-                time: "06:00 PM",
-                departureTime: "18:00",
-                routeType: "Direct"
-            }
         ];
 
         function displayBuses() {
@@ -467,7 +300,7 @@
                             selectedDate.getFullYear() === new Date().getFullYear();
 
             const foundRoutes = busRoutes.filter(route => {
-                const isMatchingRoute = route.from === fromCity && route.to === toCity;
+                const isMatchingRoute = route.from.toUpperCase() === fromCity.toUpperCase() && route.to.toUpperCase() === toCity.toUpperCase();
                 
                 if (isToday) {
                     const [busHour, busMinute] = route.departureTime.split(':').map(Number);
