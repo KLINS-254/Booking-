@@ -147,14 +147,6 @@
         }
         
         function changeDate(days) {
-            const newDate = new Date(currentDate);
-            newDate.setDate(newDate.getDate() + days);
-
-            if (days < 0 && newDate < today) {
-                // Prevent going to a past date
-                return;
-            }
-
             currentDate.setDate(currentDate.getDate() + days);
             const newDateString = currentDate.toISOString().split('T')[0];
             const newUrl = new URL(window.location);
@@ -436,20 +428,21 @@
             
             const selectedDate = new Date(currentDate.toISOString().split('T')[0]);
             
-            const isToday = selectedDate.getDate() === today.getDate() &&
-                            selectedDate.getMonth() === today.getMonth() &&
-                            selectedDate.getFullYear() === today.getFullYear();
+            const isToday = selectedDate.getDate() === new Date().getDate() &&
+                            selectedDate.getMonth() === new Date().getMonth() &&
+                            selectedDate.getFullYear() === new Date().getFullYear();
 
             const foundRoutes = busRoutes.filter(route => {
                 const isMatchingRoute = route.from === fromCity && route.to === toCity;
                 
                 if (isToday) {
                     const [busHour, busMinute] = route.departureTime.split(':').map(Number);
+                    const now = new Date();
                     const busDepartureTime = new Date();
                     busDepartureTime.setHours(busHour, busMinute, 0, 0);
 
                     // Only show buses that have not departed yet today
-                    return isMatchingRoute && busDepartureTime > today;
+                    return isMatchingRoute && busDepartureTime > now;
                 }
                 
                 return isMatchingRoute;
