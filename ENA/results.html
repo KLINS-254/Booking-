@@ -166,7 +166,7 @@
         const busResultsContainer = document.getElementById('bus-results');
 
         const busRoutes = [
-            // Nairobi to Awendo & vice-versa
+            // Nairobi to Awendo
             {
                 from: "NAIROBI", to: "AWENDO", route: "NAIROBI - KERICHO - KISII - AWENDO",
                 price: "1,500", type: "Shuttle", seats: 12, rating: 4.5, reviews: 50, time: "05:30 AM", departureTime: "05:30", routeType: "Direct"
@@ -192,6 +192,7 @@
                 price: "1,500", type: "Luxo", seats: 14, rating: 4.1, reviews: 90, time: "10:30 PM", departureTime: "22:30", routeType: "Direct"
             },
 
+            // Awendo to Nairobi
             {
                 from: "AWENDO", to: "NAIROBI", route: "AWENDO - MIGORI - NAIROBI",
                 price: "1,500", type: "Shuttle", seats: 12, rating: 4.5, reviews: 50, time: "06:00 AM", departureTime: "06:00", routeType: "Direct"
@@ -216,7 +217,8 @@
                 from: "AWENDO", to: "NAIROBI", route: "AWENDO - KISII - KERICHO - NAIROBI",
                 price: "1,500", type: "Luxo", seats: 14, rating: 4.3, reviews: 100, time: "10:30 PM", departureTime: "22:30", routeType: "Direct"
             },
-            // Routes from other towns that pass through the main route (e.g., from Migori or Kehancha to Nairobi)
+            
+            // Migori and other towns to Nairobi
             {
                 from: "MIGORI", to: "NAIROBI", route: "MIGORI - NAIROBI",
                 price: "1,500", type: "Shuttle", seats: 12, rating: 4.5, reviews: 50, time: "05:20 AM", departureTime: "05:20", routeType: "Highway"
@@ -238,7 +240,7 @@
                 price: "1,500", type: "Luxury", seats: 49, rating: 4.3, reviews: 219, time: "08:20 PM", departureTime: "20:20", routeType: "Highway"
             },
 
-            // Nairobi to Busia & vice-versa
+            // Nairobi to Busia
             {
                 from: "NAIROBI", to: "BUSIA", route: "NAIROBI - KERICHO - KISUMU - UGUNJA - BUSIA",
                 price: "1,600", type: "Luxury", seats: 49, rating: 4.4, reviews: 298, time: "07:30 AM", departureTime: "07:30", routeType: "Direct"
@@ -255,6 +257,8 @@
                 from: "NAIROBI", to: "BUSIA", route: "NAIROBI - KAKAMEGA - BUSIA",
                 price: "1,600", type: "Shuttle", seats: 12, rating: 4.5, reviews: 80, time: "10:30 PM", departureTime: "22:30", routeType: "Direct"
             },
+
+            // Busia to Nairobi
             {
                 from: "BUSIA", to: "NAIROBI", route: "BUSIA - MUMIAS - KAPSABET - NAIROBI",
                 price: "1,600", type: "Luxury", seats: 49, rating: 4.0, reviews: 89, time: "07:30 AM", departureTime: "07:30", routeType: "Direct"
@@ -271,34 +275,6 @@
                 from: "BUSIA", to: "NAIROBI", route: "BUSIA - NAIROBI",
                 price: "1,600", type: "Luxury", seats: 49, rating: 4.2, reviews: 200, time: "08:30 PM", departureTime: "20:30", routeType: "Express"
             },
-
-            // Nairobi to Nakuru & vice-versa
-            {
-                from: "NAIROBI", to: "NAKURU", route: "NAIROBI - NAKURU",
-                price: "1,200", type: "Shuttle", seats: 12, rating: 4.8, reviews: 90, time: "09:00 AM", departureTime: "09:00", routeType: "Direct"
-            },
-            {
-                from: "NAIROBI", to: "NAKURU", route: "NAIROBI - GILGIL - NAKURU",
-                price: "1,200", type: "Luxury", seats: 49, rating: 4.7, reviews: 150, time: "11:00 AM", departureTime: "11:00", routeType: "Express"
-            },
-            {
-                from: "NAIROBI", to: "NAKURU", route: "NAIROBI - NAKURU",
-                price: "1,200", type: "Luxo", seats: 14, rating: 4.6, reviews: 70, time: "05:00 PM", departureTime: "17:00", routeType: "Direct"
-            },
-            {
-                from: "NAKURU", to: "NAIROBI", route: "NAKURU - NAIROBI",
-                price: "1,600", type: "Shuttle", seats: 12, rating: 4.8, reviews: 90, time: "09:00 AM", departureTime: "09:00", routeType: "Direct"
-            },
-            {
-                from: "NAKURU", to: "NAIROBI", route: "NAKURU - GILGIL - NAIROBI",
-                price: "1,600", type: "Luxury", seats: 49, rating: 4.7, reviews: 150, time: "02:00 PM", departureTime: "14:00", routeType: "Express"
-            },
-            {
-                from: "NAKURU", to: "NAIROBI", route: "NAKURU - NAIROBI",
-                price: "1,600", type: "Luxo", seats: 14, rating: 4.6, reviews: 70, time: "07:00 PM", departureTime: "19:00", routeType: "Direct"
-            },
-            
-            // Routes that pass through other cities to Nairobi
             {
                 from: "BUSIA", to: "NAIROBI", route: "BUSIA - KAKAMEGA - NAIROBI",
                 price: "1,600", type: "Shuttle", seats: 12, rating: 4.5, reviews: 20, time: "06:00 AM", departureTime: "06:00", routeType: "Direct"
@@ -318,6 +294,34 @@
             {
                 from: "BUSIA", to: "NAIROBI", route: "BUSIA - KISUMU - NAIROBI",
                 price: "1,600", type: "Luxury", seats: 49, rating: 4.6, reviews: 90, time: "06:30 PM", departureTime: "18:30", routeType: "Express"
+            },
+
+            // Nairobi to Nakuru
+            {
+                from: "NAIROBI", to: "NAKURU", route: "NAIROBI - NAKURU",
+                price: "1,200", type: "Shuttle", seats: 12, rating: 4.8, reviews: 90, time: "09:00 AM", departureTime: "09:00", routeType: "Direct"
+            },
+            {
+                from: "NAIROBI", to: "NAKURU", route: "NAIROBI - GILGIL - NAKURU",
+                price: "1,200", type: "Luxury", seats: 49, rating: 4.7, reviews: 150, time: "11:00 AM", departureTime: "11:00", routeType: "Express"
+            },
+            {
+                from: "NAIROBI", to: "NAKURU", route: "NAIROBI - NAKURU",
+                price: "1,200", type: "Luxo", seats: 14, rating: 4.6, reviews: 70, time: "05:00 PM", departureTime: "17:00", routeType: "Direct"
+            },
+            
+            // Nakuru to Nairobi
+            {
+                from: "NAKURU", to: "NAIROBI", route: "NAKURU - NAIROBI",
+                price: "1,600", type: "Shuttle", seats: 12, rating: 4.8, reviews: 90, time: "09:00 AM", departureTime: "09:00", routeType: "Direct"
+            },
+            {
+                from: "NAKURU", to: "NAIROBI", route: "NAKURU - GILGIL - NAIROBI",
+                price: "1,600", type: "Luxury", seats: 49, rating: 4.7, reviews: 150, time: "02:00 PM", departureTime: "14:00", routeType: "Express"
+            },
+            {
+                from: "NAKURU", to: "NAIROBI", route: "NAKURU - NAIROBI",
+                price: "1,600", type: "Luxo", seats: 14, rating: 4.6, reviews: 70, time: "07:00 PM", departureTime: "19:00", routeType: "Direct"
             }
         ];
 
@@ -333,17 +337,11 @@
             const foundRoutes = busRoutes.filter(route => {
                 const routeFrom = route.from.toUpperCase();
                 const routeTo = route.to.toUpperCase();
-                const routeDescription = route.route.toUpperCase();
                 const userFrom = fromCity.toUpperCase();
                 const userTo = toCity.toUpperCase();
                 
-                // New logic: Check if the route directly matches the search criteria (from -> to)
-                const isDirectMatch = routeFrom === userFrom && routeTo === userTo;
-                
-                // Add an additional check to ensure the route description contains both cities in the correct order
-                const isCorrectDirection = routeDescription.indexOf(userFrom) < routeDescription.indexOf(userTo);
-
-                return isDirectMatch && isCorrectDirection;
+                // Check if the route directly matches the search criteria (from -> to)
+                return routeFrom === userFrom && routeTo === userTo;
             }).sort((a, b) => {
                 // Sort by departure time
                 const timeA = a.departureTime.split(':').map(Number);
