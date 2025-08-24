@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ena Coach - Seat Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            width: 100%;
+            background-color: #e3b06e;
+            color: #ffffff;
+            padding: 15px 20px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header .back-button {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .header .title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .header .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .container {
+            width: 90%;
+            max-width: 500px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .info-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .info-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+        .seat-legend {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: #333;
+        }
+        .seat-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        .available-seat { background-color: #8c9eff; }
+        .selected-seat { background-color: #e74c3c; }
+        .booked-seat { background-color: #bdc3c7; }
+        
+        .seat-map-main {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .seat-map-left {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        .seat-map-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .seat {
+            background-color: #8c9eff;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        .seat.booked {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            color: #333;
+        }
+        .seat.selected {
+            background-color: #e74c3c;
+            color: #ffffff;
+        }
+        .seat-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .fare-summary {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            text-align: center;
+        }
+        .fare-summary .fare-label {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .fare-summary .fare-amount {
+            font-size: 24px;
+            font-weight: bold;
+            color: #27ae60;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <span class="back-button" onclick="window.history.back()">&#8592;</span>
+        <div class="title">Customize Your Journey</div>
+        <span class="menu-icon">&#9776;</span>
+    </div>
+
+    <div class="container">
+        <div class="seat-legend">
+            <div class="legend-item">
+                <div class="seat-box available-seat"></div>
+                <span>Available Seat</span>
+            </div>
+            <div class="legend-item">
+                <div class="seat-box selected-seat"></div>
+                <span>Selected Seat</span>
+            </div>
+            <div class="legend-item">
+                <div class="seat-box booked-seat"></div>
+                <span>Booked Seat</span>
+            </div>
+        </div>
+
+        <div class="seat-map-main">
+            <div class="seat-map-left">
+                <div class="seat-row">
+                    <div class="seat booked" data-seat="B2">B2</div>
+                    <div class="seat" data-seat="B4">B4</div>
+                    <div class="seat booked" data-seat="B6">B6</div>
+                    <div class="seat" data-seat="B8">B8</div>
+                    <div class="seat" data-seat="B10">B10</div>
+                    <div class="seat" data-seat="B12">B12</div>
+                    <div class="seat" data-seat="B14">B14</div>
+                    <div class="seat" data-seat="B16">B16</div>
+                    <div class="seat" data-seat="B18">B18</div>
+                    <div class="seat" data-seat="B20">B20</div>
+                    <div class="seat" data-seat="B22">B22</div>
+                    <div class="seat" data-seat="B24">B24</div>
+                </div>
+                <div class="seat-row">
+                    <div class="seat booked" data-seat="B1">B1</div>
+                    <div class="seat" data-seat="B3">B3</div>
+                    <div class="seat booked" data-seat="B5">B5</div>
+                    <div class="seat" data-seat="B7">B7</div>
+                    <div class="seat" data-seat="B9">B9</div>
+                    <div class="seat" data-seat="B11">B11</div>
+                    <div class="seat" data-seat="B13">B13</div>
+                    <div class="seat" data-seat="B15">B15</div>
+                    <div class="seat" data-seat="B17">B17</div>
+                    <div class="seat" data-seat="B19">B19</div>
+                    <div class="seat" data-seat="B21">B21</div>
+                    <div class="seat" data-seat="B23">B23</div>
+                </div>
+            </div>
+
+            <div class="seat-map-right">
+                <div class="seat-row">
+                    <div class="seat booked" data-seat="STF">STF</div>
+                    <div class="seat" data-seat="A4">A4</div>
+                    <div class="seat booked" data-seat="A6">A6</div>
+                    <div class="seat" data-seat="A8">A8</div>
+                    <div class="seat" data-seat="A10">A10</div>
+                    <div class="seat booked" data-seat="A12">A12</div>
+                    <div class="seat" data-seat="A14">A14</div>
+                    <div class="seat" data-seat="A16">A16</div>
+                    <div class="seat" data-seat="A18">A18</div>
+                    <div class="seat" data-seat="A20">A20</div>
+                    <div class="seat" data-seat="A22">A22</div>
+                    <div class="seat" data-seat="A24">A24</div>
+                </div>
+                <div class="seat-row">
+                    <div class="seat" data-seat="STF">STF</div>
+                    <div class="seat" data-seat="A3">A3</div>
+                    <div class="seat" data-seat="A5">A5</div>
+                    <div class="seat" data-seat="A7">A7</div>
+                    <div class="seat booked" data-seat="A9">A9</div>
+                    <div class="seat" data-seat="A11">A11</div>
+                    <div class="seat" data-seat="A13">A13</div>
+                    <div class="seat booked" data-seat="A15">A15</div>
+                    <div class="seat" data-seat="A17">A17</div>
+                    <div class="seat" data-seat="A19">A19</div>
+                    <div class="seat" data-seat="A21">A21</div>
+                    <div class="seat" data-seat="A23">A23</div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+</body>
+</html>
