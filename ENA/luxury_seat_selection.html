@@ -6,7 +6,7 @@
     <title>Ena Coach - Seat Selection</title>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             margin: 0;
             padding: 0;
@@ -39,7 +39,6 @@
             font-size: 24px;
             cursor: pointer;
         }
-
         .main-container {
             width: 100%;
             max-width: 800px;
@@ -48,7 +47,6 @@
             padding: 15px;
             box-sizing: border-box;
         }
-
         .top-info {
             display: flex;
             justify-content: space-between;
@@ -60,7 +58,6 @@
             font-weight: bold;
             color: #2e59a4;
         }
-
         .seat-key {
             display: flex;
             justify-content: center;
@@ -82,7 +79,6 @@
         .seat-key .key-item .available { background-color: #2e59a4; }
         .seat-key .key-item .selected { background-color: #922221; }
         .seat-key .key-item .booked { background-color: #8c9eff; }
-
         .seat-layout-and-details {
             display: flex;
             flex-direction: row;
@@ -90,7 +86,6 @@
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
         .bus-layout {
             padding: 20px;
             display: flex;
@@ -135,13 +130,11 @@
         .bus-layout .staff-seat {
             background-color: #666;
         }
-
         .divider {
             width: 1px;
             background-color: #ccc;
             margin: 10px 0;
         }
-
         .details-panel {
             flex: 1;
             padding: 20px;
@@ -175,7 +168,6 @@
             font-size: 16px;
             font-weight: bold;
         }
-
         @media (max-width: 600px) {
             .seat-layout-and-details {
                 flex-direction: column;
@@ -193,7 +185,7 @@
         <div class="title">Customize Your Journey</div>
         <span class="menu-icon">&#x2630;</span>
     </div>
-
+    
     <div class="main-container">
         <div class="top-info">
             <span class="fare-label">Normal: KES 1,600</span>
@@ -247,6 +239,7 @@
                         <div class="seat available" data-seat="B23">B23</div>
                     </div>
                 </div>
+
                 <div class="seat-section" style="margin-top: 20px;">
                     <div class="seat-row">
                         <div class="seat staff-seat" data-seat="STF">STF</div>
@@ -278,9 +271,9 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="divider"></div>
-
+            
             <div class="details-panel">
                 <div class="detail-item">
                     <span class="label">Pick Point:</span>
