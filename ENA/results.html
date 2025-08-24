@@ -82,6 +82,12 @@
             flex-direction: column;
             gap: 10px;
             margin-bottom: 15px;
+            text-decoration: none; /* Add this to remove underline from the link */
+            color: #ffffff;
+        }
+        .bus-card a {
+            text-decoration: none;
+            color: #ffffff;
         }
         .bus-card .route {
             font-size: 18px;
@@ -150,7 +156,6 @@
             const newDate = new Date(currentDate);
             newDate.setDate(newDate.getDate() + days);
 
-            // Prevent going to a past date
             if (newDate < today) {
                 return;
             }
@@ -360,15 +365,11 @@
                 const userFrom = fromCity.toUpperCase();
                 const userTo = toCity.toUpperCase();
 
-                // Check if the route directly matches the search criteria (from -> to)
                 const isDirectMatch = routeFrom === userFrom && routeTo === userTo;
-                
-                // Now, we will also check if a route passes through the origin and destination, in the correct order.
                 const isPassingThrough = routeDescription.includes(userFrom) && routeDescription.includes(userTo) && routeDescription.indexOf(userFrom) < routeDescription.indexOf(userTo);
                 
                 return isDirectMatch || isPassingThrough;
             }).sort((a, b) => {
-                // Sort by departure time
                 const timeA = a.departureTime.split(':').map(Number);
                 const timeB = b.departureTime.split(':').map(Number);
                 if (timeA[0] !== timeB[0]) {
@@ -379,7 +380,8 @@
 
             if (foundRoutes.length > 0) {
                 foundRoutes.forEach(route => {
-                    const busCard = document.createElement('div');
+                    const busCard = document.createElement('a'); // Use 'a' tag to make it a link
+                    busCard.href = "luxury_seat_selection.html"; // Link to the new page
                     busCard.className = 'bus-card';
                     busCard.innerHTML = `
                         <div class="route">${route.route}</div>
