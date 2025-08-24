@@ -349,17 +349,11 @@
             const foundRoutes = busRoutes.filter(route => {
                 const routeFrom = route.from.toUpperCase();
                 const routeTo = route.to.toUpperCase();
-                const routeDescription = route.route.toUpperCase();
                 const userFrom = fromCity.toUpperCase();
                 const userTo = toCity.toUpperCase();
-
-                // Check if the route directly matches the search criteria (from -> to)
-                const isDirectMatch = routeFrom === userFrom && routeTo === userTo;
                 
-                // Check if the route passes through both cities, regardless of start/end point
-                const isPassingThrough = routeDescription.includes(userFrom) && routeDescription.includes(userTo);
-                
-                return isDirectMatch || isPassingThrough;
+                // New logic: Check if route FROM matches user's fromCity and route TO matches user's toCity
+                return routeFrom === userFrom && routeTo === userTo;
             }).sort((a, b) => {
                 // Sort by departure time
                 const timeA = a.departureTime.split(':').map(Number);
