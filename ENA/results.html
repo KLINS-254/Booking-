@@ -117,9 +117,9 @@
 
     <div class="content">
         <div class="date-nav">
-            <button>&lt;</button>
+            <button onclick="changeDate(-1)">&lt;</button>
             <span id="journey-date"></span>
-            <button>&gt;</button>
+            <button onclick="changeDate(1)">&gt;</button>
         </div>
         
         <div id="bus-results">
@@ -130,14 +130,27 @@
         const urlParams = new URLSearchParams(window.location.search);
         const fromCity = urlParams.get('from');
         const toCity = urlParams.get('to');
-        const date = urlParams.get('date');
+        let currentDateString = urlParams.get('date');
+        let currentDate = new Date(currentDateString + 'T00:00:00');
 
         document.getElementById('route-title').textContent = `${fromCity} to ${toCity}`;
         
         const journeyDateDisplay = document.getElementById('journey-date');
-        const dateObj = new Date(date + 'T00:00:00');
-        const options = { day: 'numeric', month: 'short', year: 'numeric' };
-        journeyDateDisplay.textContent = dateObj.toLocaleDateString('en-GB', options);
+        
+        function updateDateDisplay() {
+            const options = { day: 'numeric', month: 'short', year: 'numeric' };
+            journeyDateDisplay.textContent = currentDate.toLocaleDateString('en-GB', options);
+            displayBuses();
+        }
+        
+        function changeDate(days) {
+            currentDate.setDate(currentDate.getDate() + days);
+            const newDateString = currentDate.toISOString().split('T')[0];
+            const newUrl = new URL(window.location);
+            newUrl.searchParams.set('date', newDateString);
+            window.history.pushState({}, '', newUrl);
+            updateDateDisplay();
+        }
 
         const busResultsContainer = document.getElementById('bus-results');
 
@@ -276,7 +289,6 @@
             {
                 from: "NAIROBI",
                 to: "NAKURU",
-                route: "NAIROBI - NAKURU",
                 price: "1,600",
                 type: "Luxo",
                 seats: 1,
@@ -407,51 +419,57 @@
             }
         ];
 
-        const today = new Date();
-        const selectedDate = new Date(date);
-        
-        // This check ensures we only filter by time if the selected date is today
-        const isToday = selectedDate.getDate() === today.getDate() &&
-                        selectedDate.getMonth() === today.getMonth() &&
-                        selectedDate.getFullYear() === today.getFullYear();
-
-        const foundRoutes = busRoutes.filter(route => {
-            const isMatchingRoute = route.from === fromCity && route.to === toCity;
+        function displayBuses() {
+            busResultsContainer.innerHTML = '';
             
-            if (isToday) {
-                const [busHour, busMinute] = route.departureTime.split(':').map(Number);
-                const busDepartureTime = new Date();
-                busDepartureTime.setHours(busHour, busMinute, 0, 0);
-
-                return isMatchingRoute && busDepartureTime > today;
-            }
+            const today = new Date();
+            const selectedDate = new Date(currentDate.toISOString().split('T')[0]);
             
-            return isMatchingRoute;
-        });
+            const isToday = selectedDate.getDate() === today.getDate() &&
+                            selectedDate.getMonth() === today.getMonth() &&
+                            selectedDate.getFullYear() === today.getFullYear();
 
-        if (foundRoutes.length > 0) {
-            foundRoutes.forEach(route => {
-                const busCard = document.createElement('div');
-                busCard.className = 'bus-card';
-                busCard.innerHTML = `
-                    <div class="route">${route.route}</div>
-                    <div class="price">KES ${route.price}</div>
-                    <div class="details">
-                        <span>${route.type}</span>
-                        <span>${route.seats} seats</span>
-                    </div>
-                    <div class="details">
-                        <span class="rating">⭐ ${route.rating}</span>
-                        <span>${route.reviews} Ratings</span>
-                        <span>${route.time}</span>
-                        <span>${route.routeType}</span>
-                    </div>
-                `;
-                busResultsContainer.appendChild(busCard);
+            const foundRoutes = busRoutes.filter(route => {
+                const isMatchingRoute = route.from === fromCity && route.to === toCity;
+                
+                if (isToday) {
+                    const [busHour, busMinute] = route.departureTime.split(':').map(Number);
+                    const busDepartureTime = new Date();
+                    busDepartureTime.setHours(busHour, busMinute, 0, 0);
+
+                    // Only show buses that have not departed yet today
+                    return isMatchingRoute && busDepartureTime > today;
+                }
+                
+                return isMatchingRoute;
             });
-        } else {
-            busResultsContainer.innerHTML = '<p style="text-align: center; color: #ffffff;">No buses found for this route and date.</p>';
+
+            if (foundRoutes.length > 0) {
+                foundRoutes.forEach(route => {
+                    const busCard = document.createElement('div');
+                    busCard.className = 'bus-card';
+                    busCard.innerHTML = `
+                        <div class="route">${route.route}</div>
+                        <div class="price">KES ${route.price}</div>
+                        <div class="details">
+                            <span>${route.type}</span>
+                            <span>${route.seats} seats</span>
+                        </div>
+                        <div class="details">
+                            <span class="rating">⭐ ${route.rating}</span>
+                            <span>${route.reviews} Ratings</span>
+                            <span>${route.time}</span>
+                            <span>${route.routeType}</span>
+                        </div>
+                    `;
+                    busResultsContainer.appendChild(busCard);
+                });
+            } else {
+                busResultsContainer.innerHTML = '<p style="text-align: center; color: #ffffff;">No buses found for this route and date.</p>';
+            }
         }
+        
+        updateDateDisplay();
     </script>
 </body>
 </html>
