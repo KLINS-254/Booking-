@@ -117,7 +117,7 @@
 
     <div class="content">
         <div class="date-nav">
-            <button id="prev-day-btn" onclick="changeDate(-1)">&lt;</button>
+            <button onclick="changeDate(-1)">&lt;</button>
             <span id="journey-date"></span>
             <button onclick="changeDate(1)">&gt;</button>
         </div>
@@ -147,7 +147,15 @@
         }
         
         function changeDate(days) {
-            currentDate.setDate(currentDate.getDate() + days);
+            const newDate = new Date(currentDate);
+            newDate.setDate(newDate.getDate() + days);
+
+            // Prevent going to a past date
+            if (newDate < today) {
+                return;
+            }
+
+            currentDate = newDate;
             const newDateString = currentDate.toISOString().split('T')[0];
             const newUrl = new URL(window.location);
             newUrl.searchParams.set('date', newDateString);
