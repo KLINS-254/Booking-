@@ -39,14 +39,14 @@
             font-size: 24px;
             cursor: pointer;
         }
+
         .main-container {
             width: 100%;
             max-width: 800px;
-            display: flex;
-            flex-direction: column;
             padding: 15px;
             box-sizing: border-box;
         }
+
         .top-info {
             display: flex;
             justify-content: space-between;
@@ -58,6 +58,7 @@
             font-weight: bold;
             color: #2e59a4;
         }
+
         .seat-key {
             display: flex;
             justify-content: center;
@@ -79,6 +80,7 @@
         .seat-key .key-item .available { background-color: #2e59a4; }
         .seat-key .key-item .selected { background-color: #922221; }
         .seat-key .key-item .booked { background-color: #8c9eff; }
+
         .seat-layout-and-details {
             display: flex;
             flex-direction: row;
@@ -86,24 +88,26 @@
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+
         .bus-layout {
             padding: 20px;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             flex: 1;
             gap: 15px;
+            justify-content: center;
         }
-        .bus-layout .seat-section {
+        .seat-section {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-        .bus-layout .seat-row {
+        .seat-row {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
-        .bus-layout .seat {
+        .seat {
             width: 40px;
             height: 40px;
             display: flex;
@@ -114,27 +118,45 @@
             font-weight: bold;
             color: #ffffff;
             border: 1px solid #ccc;
-            cursor: pointer;
         }
-        .bus-layout .seat.available {
+        .seat.available {
             background-color: #2e59a4;
         }
-        .bus-layout .seat.selected {
+        .seat.selected {
             background-color: #922221;
         }
-        .bus-layout .seat.booked {
+        .seat.booked {
             background-color: #8c9eff;
             cursor: not-allowed;
             color: #444;
         }
-        .bus-layout .staff-seat {
-            background-color: #666;
+        .seat.unavailable {
+            background-color: #ccc;
+            border: 1px solid #999;
+            color: #666;
+            cursor: not-allowed;
         }
+        .driver-seat {
+            width: 50px;
+            height: 50px;
+            background-color: #ccc;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .driver-seat .icon {
+            font-size: 24px;
+            color: #555;
+        }
+
         .divider {
             width: 1px;
             background-color: #ccc;
             margin: 10px 0;
         }
+
         .details-panel {
             flex: 1;
             padding: 20px;
@@ -152,7 +174,14 @@
             font-weight: bold;
             color: #555;
         }
-        .details-panel .detail-item .value {
+        .details-panel .detail-item select {
+            border: 1px solid #ccc;
+            padding: 8px;
+            border-radius: 5px;
+            color: #333;
+            background-color: #f7f7f7;
+        }
+        .details-panel .detail-item .selected-seats-display {
             border: 1px solid #ccc;
             padding: 8px;
             border-radius: 5px;
@@ -168,12 +197,20 @@
             font-size: 16px;
             font-weight: bold;
         }
+
         @media (max-width: 600px) {
             .seat-layout-and-details {
                 flex-direction: column;
             }
             .divider {
                 display: none;
+            }
+            .bus-layout {
+                justify-content: flex-start;
+            }
+            .bus-layout .seat-section {
+                flex-direction: row;
+                flex-wrap: wrap;
             }
         }
     </style>
@@ -210,65 +247,68 @@
         <div class="seat-layout-and-details">
             <div class="bus-layout">
                 <div class="seat-section">
-                    <div class="seat-row">
-                        <div class="seat booked" data-seat="B2">B2</div>
-                        <div class="seat available" data-seat="B4">B4</div>
-                        <div class="seat booked" data-seat="B6">B6</div>
-                        <div class="seat available" data-seat="B8">B8</div>
-                        <div class="seat booked" data-seat="B10">B10</div>
-                        <div class="seat available" data-seat="B12">B12</div>
-                        <div class="seat booked" data-seat="B14">B14</div>
-                        <div class="seat available" data-seat="B16">B16</div>
-                        <div class="seat booked" data-seat="B18">B18</div>
-                        <div class="seat available" data-seat="B20">B20</div>
-                        <div class="seat available" data-seat="B22">B22</div>
-                        <div class="seat booked" data-seat="B24">B24</div>
+                    <div class="driver-seat">
+                        <span class="icon">&#x263c;</span>
                     </div>
-                    <div class="seat-row">
-                        <div class="seat booked" data-seat="B1">B1</div>
-                        <div class="seat available" data-seat="B3">B3</div>
-                        <div class="seat booked" data-seat="B5">B5</div>
-                        <div class="seat available" data-seat="B7">B7</div>
-                        <div class="seat booked" data-seat="B9">B9</div>
-                        <div class="seat available" data-seat="B11">B11</div>
-                        <div class="seat booked" data-seat="B13">B13</div>
-                        <div class="seat available" data-seat="B15">B15</div>
-                        <div class="seat booked" data-seat="B17">B17</div>
-                        <div class="seat available" data-seat="B19">B19</div>
-                        <div class="seat booked" data-seat="B21">B21</div>
-                        <div class="seat available" data-seat="B23">B23</div>
-                    </div>
+                    <div class="seat booked">B2</div>
+                    <div class="seat booked">B4</div>
+                    <div class="seat booked">B6</div>
+                    <div class="seat booked">B8</div>
+                    <div class="seat booked">B10</div>
+                    <div class="seat booked">B12</div>
+                    <div class="seat booked">B14</div>
+                    <div class="seat booked">B16</div>
+                    <div class="seat booked">B18</div>
+                    <div class="seat booked">B20</div>
+                    <div class="seat booked">B22</div>
+                    <div class="seat booked">B24</div>
+                    
+                    <div style="height: 10px;"></div>
+                    
+                    <div class="seat booked">B1</div>
+                    <div class="seat booked">B3</div>
+                    <div class="seat booked">B5</div>
+                    <div class="seat booked">B7</div>
+                    <div class="seat booked">B9</div>
+                    <div class="seat booked">B11</div>
+                    <div class="seat booked">B13</div>
+                    <div class="seat booked">B15</div>
+                    <div class="seat booked">B17</div>
+                    <div class="seat booked">B19</div>
+                    <div class="seat booked">B21</div>
+                    <div class="seat booked">B23</div>
                 </div>
 
-                <div class="seat-section" style="margin-top: 20px;">
-                    <div class="seat-row">
-                        <div class="seat staff-seat" data-seat="STF">STF</div>
-                        <div class="seat available" data-seat="A4">A4</div>
-                        <div class="seat booked" data-seat="A6">A6</div>
-                        <div class="seat available" data-seat="A8">A8</div>
-                        <div class="seat booked" data-seat="A10">A10</div>
-                        <div class="seat available" data-seat="A12">A12</div>
-                        <div class="seat booked" data-seat="A14">A14</div>
-                        <div class="seat available" data-seat="A16">A16</div>
-                        <div class="seat booked" data-seat="A18">A18</div>
-                        <div class="seat available" data-seat="A20">A20</div>
-                        <div class="seat booked" data-seat="A22">A22</div>
-                        <div class="seat available" data-seat="A24">A24</div>
-                    </div>
-                    <div class="seat-row">
-                        <div class="seat staff-seat" data-seat="STF">STF</div>
-                        <div class="seat available" data-seat="A3">A3</div>
-                        <div class="seat booked" data-seat="A5">A5</div>
-                        <div class="seat available" data-seat="A7">A7</div>
-                        <div class="seat booked" data-seat="A9">A9</div>
-                        <div class="seat available" data-seat="A11">A11</div>
-                        <div class="seat booked" data-seat="A13">A13</div>
-                        <div class="seat available" data-seat="A15">A15</div>
-                        <div class="seat booked" data-seat="A17">A17</div>
-                        <div class="seat available" data-seat="A19">A19</div>
-                        <div class="seat booked" data-seat="A21">A21</div>
-                        <div class="seat available" data-seat="A23">A23</div>
-                    </div>
+                <div style="width: 20px;"></div>
+
+                <div class="seat-section">
+                    <div class="seat unavailable">STF</div>
+                    <div class="seat unavailable">STF</div>
+                    <div class="seat booked">A4</div>
+                    <div class="seat booked">A6</div>
+                    <div class="seat booked">A8</div>
+                    <div class="seat booked">A10</div>
+                    <div class="seat booked">A12</div>
+                    <div class="seat booked">A14</div>
+                    <div class="seat booked">A16</div>
+                    <div class="seat booked">A18</div>
+                    <div class="seat booked">A20</div>
+                    <div class="seat booked">A22</div>
+                    <div class="seat booked">A24</div>
+                    
+                    <div style="height: 10px;"></div>
+
+                    <div class="seat booked">A3</div>
+                    <div class="seat booked">A5</div>
+                    <div class="seat booked">A7</div>
+                    <div class="seat booked">A9</div>
+                    <div class="seat booked">A11</div>
+                    <div class="seat booked">A13</div>
+                    <div class="seat booked">A15</div>
+                    <div class="seat booked">A17</div>
+                    <div class="seat booked">A19</div>
+                    <div class="seat booked">A21</div>
+                    <div class="seat booked">A23</div>
                 </div>
             </div>
             
@@ -289,10 +329,10 @@
                 </div>
                 <div class="detail-item">
                     <span class="label">Selected Seats:</span>
-                    <div class="value" id="selected-seats-display"></div>
+                    <div class="selected-seats-display"></div>
                 </div>
                 <div class="fare-box">
-                    Fare: KES <span id="total-fare">1,600</span>
+                    Fare: KES 1,600
                 </div>
             </div>
         </div>
