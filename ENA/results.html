@@ -137,6 +137,9 @@
         
         const journeyDateDisplay = document.getElementById('journey-date');
         
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
         function updateDateDisplay() {
             const options = { day: 'numeric', month: 'short', year: 'numeric' };
             journeyDateDisplay.textContent = currentDate.toLocaleDateString('en-GB', options);
@@ -144,6 +147,14 @@
         }
         
         function changeDate(days) {
+            const newDate = new Date(currentDate);
+            newDate.setDate(newDate.getDate() + days);
+
+            if (days < 0 && newDate < today) {
+                // Prevent going to a past date
+                return;
+            }
+
             currentDate.setDate(currentDate.getDate() + days);
             const newDateString = currentDate.toISOString().split('T')[0];
             const newUrl = new URL(window.location);
@@ -289,6 +300,7 @@
             {
                 from: "NAIROBI",
                 to: "NAKURU",
+                route: "NAIROBI - NAKURU",
                 price: "1,600",
                 type: "Luxo",
                 seats: 1,
@@ -422,7 +434,6 @@
         function displayBuses() {
             busResultsContainer.innerHTML = '';
             
-            const today = new Date();
             const selectedDate = new Date(currentDate.toISOString().split('T')[0]);
             
             const isToday = selectedDate.getDate() === today.getDate() &&
