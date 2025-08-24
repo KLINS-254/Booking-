@@ -348,7 +348,7 @@
 
             const foundRoutes = busRoutes.filter(route => {
                 const isMatchingRoute = route.to.toUpperCase() === toCity.toUpperCase() &&
-                                     (route.from.toUpperCase() === fromCity.toUpperCase() || route.route.toUpperCase().includes(fromCity.toUpperCase()));
+                                     (route.from.toUpperCase() === fromCity.toUpperCase() || (route.route.toUpperCase().includes(fromCity.toUpperCase()) && route.route.toUpperCase().includes(toCity.toUpperCase())));
 
                 if (isToday) {
                     const [busHour, busMinute] = route.departureTime.split(':').map(Number);
