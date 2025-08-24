@@ -298,7 +298,7 @@
                 price: "1,600", type: "Luxo", seats: 14, rating: 4.6, reviews: 70, time: "07:00 PM", departureTime: "19:00", routeType: "Direct"
             },
             
-            // New Routes: Busia to Nakuru & vice-versa (modified to go to NAIROBI)
+            // Routes that pass through other cities to Nairobi
             {
                 from: "BUSIA", to: "NAIROBI", route: "BUSIA - KAKAMEGA - NAKURU - NAIROBI",
                 price: "1,600", type: "Shuttle", seats: 12, rating: 4.5, reviews: 20, time: "06:00 AM", departureTime: "06:00", routeType: "Direct"
@@ -347,19 +347,27 @@
                             selectedDate.getFullYear() === new Date().getFullYear();
 
             const foundRoutes = busRoutes.filter(route => {
-                const isMatchingRoute = route.to.toUpperCase() === toCity.toUpperCase() &&
-                                     (route.from.toUpperCase() === fromCity.toUpperCase() || (route.route.toUpperCase().includes(fromCity.toUpperCase()) && route.route.toUpperCase().includes(toCity.toUpperCase())));
+                const routeFrom = route.from.toUpperCase();
+                const routeTo = route.to.toUpperCase();
+                const routeDescription = route.route.toUpperCase();
+                const userFrom = fromCity.toUpperCase();
+                const userTo = toCity.toUpperCase();
 
-                if (isToday) {
-                    const [busHour, busMinute] = route.departureTime.split(':').map(Number);
-                    const now = new Date();
-                    const busDepartureTime = new Date();
-                    busDepartureTime.setHours(busHour, busMinute, 0, 0);
-
-                    return isMatchingRoute && busDepartureTime > now;
-                }
+                // Check if the route directly matches the search criteria (from -> to)
+                const isDirectMatch = routeFrom === userFrom && routeTo === userTo;
                 
-                return isMatchingRoute;
+                // Check if the route passes through both cities, regardless of start/end point
+                const isPassingThrough = routeDescription.includes(userFrom) && routeDescription.includes(userTo);
+                
+                return isDirectMatch || isPassingThrough;
+            }).sort((a, b) => {
+                // Sort by departure time
+                const timeA = a.departureTime.split(':').map(Number);
+                const timeB = b.departureTime.split(':').map(Number);
+                if (timeA[0] !== timeB[0]) {
+                    return timeA[0] - timeB[0];
+                }
+                return timeA[1] - timeB[1];
             });
 
             if (foundRoutes.length > 0) {
