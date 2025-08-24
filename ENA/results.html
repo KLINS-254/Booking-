@@ -166,7 +166,7 @@
         const busResultsContainer = document.getElementById('bus-results');
 
         const busRoutes = [
-            // Nairobi to Awendo
+            // Nairobi to Awendo (Routes passing through Migori)
             {
                 from: "NAIROBI",
                 to: "AWENDO",
@@ -207,7 +207,7 @@
                 routeType: "Express"
             },
 
-            // Awendo to Nairobi
+            // Awendo to Nairobi (Routes passing through Migori)
             {
                 from: "AWENDO",
                 to: "NAIROBI",
@@ -248,7 +248,7 @@
                 routeType: "Express"
             },
             
-            // Other routes (for variety)
+            // Other popular routes
             {
                 from: "NAIROBI",
                 to: "KISUMU",
@@ -260,6 +260,19 @@
                 reviews: 500,
                 time: "10:00 PM",
                 departureTime: "22:00",
+                routeType: "Direct"
+            },
+            {
+                from: "KISUMU",
+                to: "NAIROBI",
+                route: "KISUMU - NAIROBI",
+                price: "1,600",
+                type: "Luxo",
+                seats: 14,
+                rating: 4.5,
+                reviews: 350,
+                time: "07:00 AM",
+                departureTime: "07:00",
                 routeType: "Direct"
             },
             {
@@ -279,6 +292,19 @@
                 from: "NAIROBI",
                 to: "NAKURU",
                 route: "NAIROBI - NAKURU",
+                price: "1,200",
+                type: "Shuttle",
+                seats: 12,
+                rating: 4.8,
+                reviews: 90,
+                time: "09:00 AM",
+                departureTime: "09:00",
+                routeType: "Direct"
+            },
+             {
+                from: "NAKURU",
+                to: "NAIROBI",
+                route: "NAKURU - NAIROBI",
                 price: "1,200",
                 type: "Shuttle",
                 seats: 12,
